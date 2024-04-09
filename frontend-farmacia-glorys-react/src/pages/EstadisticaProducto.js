@@ -10,7 +10,7 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
 
     const [productos, setProductos] = useState([]);  // Declaración del estado 'productos' y su función 'setProductos' a través de useState, con un valor inicial de un array vacío
     const [myChart, setMyChart] = useState(null);  // Declaración del estado 'myChart' y su función 'setMyChart' a través de useState, con un valor inicial de 'null'
-    
+    const [productosPorCategoria, setProductosPorCategoria] = useState([]);
 
     useEffect(() => {
       fetch('http://localhost:5000/crud/readProducto')  // Realiza una solicitud GET al servidor para obtener productos
@@ -99,6 +99,66 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
       }
     };
 
+    //Gráfico de pastel para ver la cantidad de productos por categoría
+    useEffect(() => {
+      fetch('http://localhost:5000/crud/productosPorCategoria')
+          .then((response) => response.json())
+          .then((data) => setProductosPorCategoria(data))
+          .catch((error) => console.error('Error al obtener los productos por categoría:', error));
+    }, []);
+
+
+ useEffect(() => {
+  if (productosPorCategoria.length > 0) {
+  const ctx = document.getElementById('myCategories');
+
+  const labels = productosPorCategoria.map((categoria) => categoria.NombreCategoria); 
+  const data = productosPorCategoria.map((categoria) => categoria.CantidadProductos);
+
+  const chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: labels,
+      datasets: [{
+        label: 'Cantidad de productos por categoría',
+        data: data,
+
+          backgroundColor: [
+          'rgba(255, 99, 132, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)', 
+          'rgba(75, 192, 192, 0.5)', 
+          'rgba(153, 102, 255, 0.5)', 
+          'rgba(255, 159, 64, 0.5)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)', 
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+       responsive: true,
+       plugins: {
+            Legend: {
+              position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Cantidad de productos por categoría'
+            }
+        }
+        }
+    });
+   }
+}, [productosPorCategoria]);
+
+
  
     return(
         <div>
@@ -128,6 +188,23 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
 
                 </Card>
             </Col>
+
+            <Col sm="6" md="6" lg="4">
+            <Card>
+            <Card.Body>
+                 <Card.Title>Productos por Categoría</Card.Title>
+                 <canvas id="myCategories"  height="120"></canvas>
+            </Card.Body>
+            
+            <Card.Body>
+                <Button onClick={generarReporteAlmacen}>
+                Generar PDF
+                </Button>
+            </Card.Body>
+
+                </Card>
+          </Col>   
+
 
             </Row>
         </Container> 
