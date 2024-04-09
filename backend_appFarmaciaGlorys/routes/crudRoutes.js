@@ -132,7 +132,7 @@ module.exports = (db) => {
     db.query(sql, [idMarca], (err, result) => {
       if (err) {
         console.error('Error al eliminar un registro de la tabla marca:', err);
-        res.status(500).json({ error: 'Error al eliminar un registro de la tabla marca' });
+        res.status(500).json({ error: 'Error al eliminar un registro de la tabla ' });
       } else {
         // Devuelve un mensaje de éxito
         res.status(200).json({ message: 'Registro eliminado exitosamente' });
@@ -141,7 +141,7 @@ module.exports = (db) => {
   });
 
   //Sentencia
-  //curl -X DELETE http://localhost:5000/crud/deleteMarca/1
+  //curl -X DELETE http://localhost:5000/crud/deleteMarca/2
   //---------------------------------------------------------------------------------------
 
   // Ruta para leer registros
@@ -1324,13 +1324,13 @@ module.exports = (db) => {
 
   router.delete('/deleteCategoria/:idCategoria', (req, res) => {
     // Obtén el ID del registro a eliminar desde los parámetros de la URL
-    const idMarca = req.params.idMarca;
+    const idCategoria = req.params.idCategoria;
 
     // Realiza la consulta SQL para eliminar el registro por ID
     const sql = 'DELETE FROM categoria WHERE IDCategoria = ?';
 
     // Ejecuta la consulta
-    db.query(sql, [IDCategoria], (err, result) => {
+    db.query(sql, [idCategoria], (err, result) => {
       if (err) {
         console.error('Error al eliminar un registro de la tabla categoria:', err);
         res.status(500).json({ error: 'Error al eliminar un registro de la tabla ' });
@@ -1343,6 +1343,32 @@ module.exports = (db) => {
   //Sentencia
   //curl -X DELETE http://localhost:5000/crud/deleteCategoria/1
   //---------------------------------------------------------------------------------------
+
+  //Nuevo gráfico
+  //Sentencia 
+  //Ruta para obtener datos estadísticas de la tabla producto por categoría
+  router.get('/productosPorCategoria', (req, res) => {
+    const sql = `
+    SELECT  
+      Categoria.NombreCategoria, 
+      COUNT(Producto.IDProducto) AS CantidadProductos
+    FROM 
+        Producto
+       INNER JOIN
+         Categoria ON Producto.IDCategoria = Categoria.IDCategoria
+    GROUP BY  
+        Categoria.IDCategoria
+    `;
+
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error('Error al obtener la cantidad de productos por categoría:', err);
+        res.status(500).json({ error: 'Error al obtener la cantidad de productos por categoría' });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  });
 
 
   return router;

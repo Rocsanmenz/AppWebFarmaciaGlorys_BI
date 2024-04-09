@@ -10,6 +10,7 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
 
     const [productos, setProductos] = useState([]);  // Declaración del estado 'productos' y su función 'setProductos' a través de useState, con un valor inicial de un array vacío
     const [myChart, setMyChart] = useState(null);  // Declaración del estado 'myChart' y su función 'setMyChart' a través de useState, con un valor inicial de 'null'
+    
 
     useEffect(() => {
       fetch('http://localhost:5000/crud/readProducto')  // Realiza una solicitud GET al servidor para obtener productos
@@ -98,6 +99,7 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
       }
     };
 
+ 
     return(
         <div>
         <Header Rol={ Rol } />  
@@ -106,7 +108,7 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
 
         <Row className="g-3">
 
-            <Col sm="6" md="6" lg="12">
+            <Col sm="6" md="6" lg="6">
                 <Card>
                 <Card.Body>
                     <Card.Title>Estado del almacen</Card.Title>
@@ -118,27 +120,18 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
                     Generar PDF
                     </Button>
                 </Card.Body>
-
-                </Card>
-            </Col>
-
-            <Col sm="6" md="6" lg="12">
-            <Card>
-              <Card.Body>
-                <Card.Title>Estado del almacen</Card.Title>
-              </Card.Body>
-
-              <Card.Body>
+                <Card.Body>
                 <Button onClick={generarReporteAlmacenImg}>
                   Generar reporte con imagen
                 </Button>
               </Card.Body>
 
-            </Card>
-          </Col>
+                </Card>
+            </Col>
 
             </Row>
-        </Container>
+        </Container> 
+
 
         </div>
     );

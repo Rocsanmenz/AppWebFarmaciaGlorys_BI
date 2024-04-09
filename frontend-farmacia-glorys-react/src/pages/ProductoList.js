@@ -265,7 +265,7 @@ function ProductoList({Rol}) {
                     <th>Nombre de Producto</th>
                     <th>Imagen</th>
                     <th>Descripción</th>
-                    <th>C$</th>
+                    <th>Precio</th>
                     <th>Estado</th>
                     <th>Almacen</th>
                     <th>Marca</th>
@@ -281,9 +281,9 @@ function ProductoList({Rol}) {
                     <td>{producto.NomProducto}</td>
                     <td><img src={producto.imagen} alt={producto.NomProducto} style={{ maxWidth: '100px' }} /></td>
                     <td>{producto.DescripProducto}</td>
-                    <td>{producto.PrecioProducto}</td>
+                    <td>{producto.PrecioProducto} C$</td>
                     <td>{producto.Estado}</td>
-                    <td>{producto.CantProducto}</td>
+                    <td>{producto.CantProducto} Unidades</td>
                     <td>{marcas.find((marca) => marca.IDMarca === producto.IDMarca)?.NombreMarca}</td>
                     <td>{categorias.find((categoria) => categoria.IDCategoria === producto.IDCategoria)?.NombreCategoria}</td>
                     <td>{presentaciones.find((presentacion) => presentacion.IDPresentacion === producto.IDPresentacion)?.NombrePresentacion}</td>
