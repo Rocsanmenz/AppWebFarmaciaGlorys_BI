@@ -9,7 +9,8 @@ import html2canvas from 'html2canvas';
 function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas con el argumento 'rol'
 
     const [productos, setProductos] = useState([]);  // Declaración del estado 'productos' y su función 'setProductos' a través de useState, con un valor inicial de un array vacío
-    const [myChart, setMyChart] = useState(null);  // Declaración del estado 'myChart' y su función 'setMyChart' a través de useState, con un valor inicial de 'null'
+    const [myChart, setMyChart] = useState(null);
+    const [myChart2, setMyChart2] = useState(null);  // Declaración del estado 'myChart' y su función 'setMyChart' a través de useState, con un valor inicial de 'null'
     const [productosPorCategoria, setProductosPorCategoria] = useState([]);
 
     useEffect(() => {
@@ -112,6 +113,10 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
   if (productosPorCategoria.length > 0) {
   const ctx = document.getElementById('myCategories');
 
+  if (myChart2 !== null) {
+    myChart2.destroy(); // Destruye el gráfico existente antes de crear uno nuevo para evitar conflictos
+  }
+
   const labels = productosPorCategoria.map((categoria) => categoria.NombreCategoria); 
   const data = productosPorCategoria.map((categoria) => categoria.CantidadProductos);
 
@@ -155,6 +160,7 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
         }
         }
     });
+    setMyChart2(chart)
    }
 }, [productosPorCategoria]);
 
