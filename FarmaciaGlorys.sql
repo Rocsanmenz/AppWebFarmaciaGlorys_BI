@@ -96,14 +96,6 @@ CREATE TABLE Empleado (
  PRIMARY KEY (IDServicioCliente) /*Clave Primaria*/
  );
  
- /*Tabla Pago*/
- CREATE TABLE Pago (
- IDPago INT AUTO_INCREMENT	NOT NULL,  /*Autoincrementable*/
- FechaHoraPago TIMESTAMP DEFAULT CURRENT_TIMESTAMP, /*Fecha y hora predeterminada del sistema*/
- TotalPago DECIMAL(8,2) NOT NULL,
- PRIMARY KEY (IDPago) /*Clave Primaria*/
- ); 
- 
  /*Tabla Compra*/
  CREATE TABLE Compra (
  IDCompra INT AUTO_INCREMENT NOT NULL,  /*Autoincrementable*/
@@ -111,21 +103,20 @@ CREATE TABLE Empleado (
  IDCliente INT NOT NULL,
  FechaHoraCompra TIMESTAMP DEFAULT CURRENT_TIMESTAMP, /*Fecha y hora predeterminada del sistema*/
  DirecCompra VARCHAR(100) NOT NULL,
- IDPago INT NOT NULL,
  EstadoC VARCHAR(20) NULL,
- FOREIGN KEY (IDPago) REFERENCES Pago (IDPago), /*Relaciones*/
  FOREIGN KEY (IDEmpleado) REFERENCES Empleado (IDEmpleado), /*Relaciones*/
  FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente), /*Relaciones*/
  PRIMARY KEY (IDCompra) /*Clave Primaria*/
  );
  
  /*Tabla CompraProducto*/
- CREATE TABLE CompraProducto (
+ CREATE TABLE DetalleCompra (
  IDCompraProducto INT AUTO_INCREMENT NOT NULL,  /*Autoincrementable*/
  IDProducto INT NOT NULL,
  IDCompra INT NOT NULL,
  CantProductos INT NOT NULL,
  Precio DECIMAL(8,2) NOT NULL,
+ TotalCompra DECIMAL (8,2) NOT NULL,
  FOREIGN KEY (IDProducto) REFERENCES Producto (IDProducto), /*Relaciones*/
  FOREIGN KEY (IDCompra) REFERENCES Compra (IDCompra), /*Relaciones*/
  PRIMARY KEY (IDCompraProducto) /*Clave Primaria*/
