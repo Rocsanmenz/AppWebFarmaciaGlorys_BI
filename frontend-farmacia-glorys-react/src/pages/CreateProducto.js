@@ -277,7 +277,7 @@ const handleSubmitPresentacion = async (e) => {
         <Container responsive>
             <Card className="mt-5">
             <Card.Body>
-                <Card.Title className="mt-3">Nuevo Producto</Card.Title>
+                <Card.Title className="title">Nuevo Producto</Card.Title>
                 <div className='form-1'>
                 <Form className="mt-4" onSubmit={handleSubmit}>
                 <Row className="g-3">

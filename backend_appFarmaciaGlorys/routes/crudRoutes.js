@@ -264,7 +264,7 @@ module.exports = (db) => {
   router.get('/readCliente', (req, res) => {
     // Utiliza la instancia de la base de datos pasada como parámetro
     // Realizar una consulta SQL para seleccionar todos los registros
-    const sql = 'SELECT * FROM cliente';
+    const sql = 'select  IDCliente, NombreUsuario from cliente inner join usuario on cliente.IDUsuario = usuario.IDUsuario';
 
     // Ejecutar la consulta
     db.query(sql, (err, result) => {
@@ -404,7 +404,7 @@ module.exports = (db) => {
   router.get('/readEmpleado', (req, res) => {
     // Utiliza la instancia de la base de datos pasada como parámetro
     // Realizar una consulta SQL para seleccionar todos los registros
-    const sql = 'SELECT * FROM empleado';
+    const sql = 'select  IDEmpleado, NombreUsuario from empleado inner join usuario on empleado.IDUsuario = usuario.IDUsuario';
 
     // Ejecutar la consulta
     db.query(sql, (err, result) => {
@@ -885,350 +885,34 @@ module.exports = (db) => {
   //curl -X DELETE http://localhost:5000/crud/deleteServicioCliente/1
   //---------------------------------------------------------------------------------------
 
-  // Ruta para leer registros
-  //Ruta para leer la tabla Pago de la Base de Datos--------------------------------
-  router.get('/readPago', (req, res) => {
-    // Utiliza la instancia de la base de datos pasada como parámetro
-    // Realizar una consulta SQL para seleccionar todos los registros
-    const sql = 'SELECT * FROM pago';
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer los registros de la tabla pago:', err);
-        res.status(500).json({ error: 'Error al leer los registros de la tabla pago' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  //Sentencia
-  //curl http://localhost:5000/crud/readPago
-  //--------------------------------------------------------------------------------------
-
-  // Ruta para crear un nuevo registro con ID específico en la tabla Pago------------
-  router.post('/createPago', (req, res) => {
-    // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {totalPago } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
-    if (!totalPago) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO pago (TotalPago) VALUES (?)`;
-    const values = [totalPago];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al insertar un registro en la tabla pago:', err);
-        res.status(500).json({ error: 'Error al insertar un registro en la tabla pago' });
-      } else {
-        // Devuelve un mensaje como respuesta
-        res.status(201).json({ message: 'Registro agregado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X POST -H "Content-Type: application/json" -d "{\"totalPago\":450}" http://localhost:5000/crud/createPago
-  //----------------------------------------------------------------------------------------
-
-  // Ruta para actualizar un registro existente por ID en la tabla Pago--------------
-  router.put('/updatePago/:idPago', (req, res) => {
-    // Obtén el ID del registro a actualizar desde los parámetros de la URL
-    const idPago = req.params.idPago;
-
-    // Recibe los datos actualizados desde el cuerpo de la solicitud (req.body)
-    const { totalPago } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
-    if (!totalPago) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    // Realiza la consulta SQL para actualizar el registro por ID
-    const sql = `
-      UPDATE pago
-      SET TotalPago = ?
-      WHERE IDPago = ?
-    `;
-
-    const values = [totalPago, idPago];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al actualizar un registro de la tabla pago:', err);
-        res.status(500).json({ error: 'Error al actualizar un registro de la tabla pago' });
-      } else {
-        // Devuelve un mensaje de éxito
-        res.status(200).json({ message: 'Registro actualizado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X PUT -H "Content-Type: application/json" -d "{\"totalPago\":500}" http://localhost:5000/crud/updatePago/1
-  //-------------------------------------------------------------------------------------
-
-  // Ruta para eliminar un registro existente por ID en la tabla Pago-------------------
-  router.delete('/deletePago/:idPago', (req, res) => {
-    // Obtén el ID del registro a eliminar desde los parámetros de la URL
-    const idPago = req.params.idPago;
-
-    // Realiza la consulta SQL para eliminar el registro por ID
-    const sql = 'DELETE FROM pago WHERE IDPago = ?';
-
-    // Ejecuta la consulta
-    db.query(sql, [idPago], (err, result) => {
-      if (err) {
-        console.error('Error al eliminar un registro de la tabla pago:', err);
-        res.status(500).json({ error: 'Error al eliminar un registro de la tabla pago' });
-      } else {
-        // Devuelve un mensaje de éxito
-        res.status(200).json({ message: 'Registro eliminado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X DELETE http://localhost:5000/crud/deletePago/1
-  //---------------------------------------------------------------------------------------
-
-  // Ruta para leer registros
-  //Ruta para leer la tabla Compra de la Base de Datos--------------------------------
-  router.get('/readCompra', (req, res) => {
-    // Utiliza la instancia de la base de datos pasada como parámetro
-    // Realizar una consulta SQL para seleccionar todos los registros
-    const sql = 'SELECT * FROM compra';
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer los registros de la tabla compra:', err);
-        res.status(500).json({ error: 'Error al leer los registros de la tabla compra' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  //Sentencia
-  //curl http://localhost:5000/crud/readCompra
-  //--------------------------------------------------------------------------------------
-
-  // Ruta para crear un nuevo registro con ID específico en la tabla Compra------------
   router.post('/createCompra', (req, res) => {
-    // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {idEmpleado, idCliente,direcCompra, idPago, estadoC } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
-    if (!idEmpleado || !idCliente || !direcCompra || !idPago || !estadoC) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO compra (IDEmpleado, IDCliente, DirecCompra, IDPago, EstadoC) VALUES (?, ?, ?, ?, ?)`;
-    const values = [idEmpleado, idCliente,  direcCompra, idPago, estadoC];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
+    // Extraer datos de la solicitud
+    const { IDEmpleado, IDCliente, DirecCompra, EstadoC } = req.body;
+  
+    // Realizar la inserción de la compra en la tabla Compras
+    const sqlCompra = 'INSERT INTO compra (IDEmpleado, IDCliente, DirecCompra) VALUES (?, ?, ?, ?)';
+    db.query(sqlCompra, [IDEmpleado, IDCliente, DirecCompra, EstadoC], (err, result) => {
       if (err) {
-        console.error('Error al insertar un registro en la tabla compra:', err);
-        res.status(500).json({ error: 'Error al insertar un registro en la tabla compra' });
-      } else {
-        // Devuelve un mensaje como respuesta
-        res.status(201).json({ message: 'Registro agregado exitosamente' });
+        console.error('Error al insertar la compra:', err);
+        return res.status(500).json({ error: 'Error al insertar la compra' });
       }
+  
+      const IDCompra = result.insertId; // Obtener el ID de la compra insertada
+  
+      // Iterar sobre el detalle de la compra y realizar inserciones en DetalleCompra
+      const sqlDetalle = 'INSERT INTO detallecompra (IDProducto, CantProductos, TipoEntrega, IDCompra) VALUES ?';
+      const values = detalle.map((item) => [ item.IDProducto, item.CantProductos, item.TipoEntrega, IDCompra]);
+      db.query(sqlDetalle, [values], (err, result) => {
+        if (err) {
+          console.error('Error al insertar detalle de compra:', err);
+          return res.status(500).json({ error: 'Error al insertar detalle de compra' });
+        }
+  
+        // Devolver respuesta exitosa
+        res.status(201).json({ message: 'Compra y detalle de venta agregados con éxito' });
+      });
     });
   });
-
-  //Sentencia
-  //curl -X POST -H "Content-Type: application/json" -d "{\"idEmpleado\":1,\"idCliente\":1,\"direcCompra\":\"Frente al complejo judicial\",\"idPago\":1,\"estadoC\":\"EN PROCESO\"}" http://localhost:5000/crud/createCompra
-  //----------------------------------------------------------------------------------------
-
-  // Ruta para actualizar un registro existente por ID en la tabla Compra--------------
-  router.put('/updateCompra/:idCompra', (req, res) => {
-    // Obtén el ID del registro a actualizar desde los parámetros de la URL
-    const idCompra = req.params.idCompra;
-
-    // Recibe los datos actualizados desde el cuerpo de la solicitud (req.body)
-    const { idEmpleado, idCliente, direcCompra, idPago, estadoC } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
-    if (!idEmpleado || !idCliente || !direcCompra || !idPago || !estadoC) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    // Realiza la consulta SQL para actualizar el registro por ID
-    const sql = `
-      UPDATE compra
-      SET IDEmpleado = ?, IDCliente = ?, DirecCompra = ?, IDPago = ?, EstadoC = ?
-      WHERE IDCompra = ?
-    `;
-
-    const values = [idEmpleado, idCliente, direcCompra, idPago, estadoC, idCompra];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al actualizar un registro de la tabla compra:', err);
-        res.status(500).json({ error: 'Error al actualizar un registro de la tabla compra' });
-      } else {
-        // Devuelve un mensaje de éxito
-        res.status(200).json({ message: 'Registro actualizado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X PUT -H "Content-Type: application/json" -d "{\"idEmpleado\":1,\"idCliente\":1,\"direcCompra\":\"Iglesia Divino Niño 2 cuadras al Oeste\",\"idPago\":1,\"estadoC\":\"ENTREGADA\"}" http://localhost:5000/crud/updateCompra/1
-  //-------------------------------------------------------------------------------------
-
-  // Ruta para eliminar un registro existente por ID en la tabla Compra-------------------
-  router.delete('/deleteCompra/:idCompra', (req, res) => {
-    // Obtén el ID del registro a eliminar desde los parámetros de la URL
-    const idCompra = req.params.idCompra;
-
-    // Realiza la consulta SQL para eliminar el registro por ID
-    const sql = 'DELETE FROM compra WHERE IDCompra = ?';
-
-    // Ejecuta la consulta
-    db.query(sql, [idCompra], (err, result) => {
-      if (err) {
-        console.error('Error al eliminar un registro de la tabla compra:', err);
-        res.status(500).json({ error: 'Error al eliminar un registro de la tabla compra' });
-      } else {
-        // Devuelve un mensaje de éxito
-        res.status(200).json({ message: 'Registro eliminado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X DELETE http://localhost:5000/crud/deleteCompra/1
-  //---------------------------------------------------------------------------------------
-
-  // Ruta para leer registros
-  //Ruta para leer la tabla CompraProducto de la Base de Datos--------------------------------
-  router.get('/readCompraProducto', (req, res) => {
-    // Utiliza la instancia de la base de datos pasada como parámetro
-    // Realizar una consulta SQL para seleccionar todos los registros
-    const sql = 'SELECT * FROM compraproducto';
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer los registros de la tabla compra_producto:', err);
-        res.status(500).json({ error: 'Error al leer los registros de la tabla compra_producto' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  //Sentencia
-  //curl http://localhost:5000/crud/readCompraProducto
-  //--------------------------------------------------------------------------------------
-
-  // Ruta para crear un nuevo registro con ID específico en la tabla CompraProducto------------
-  router.post('/createCompraProducto', (req, res) => {
-    // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {idProducto, idCompra, cantProductos, precio } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
-    if (!idProducto || !idCompra || !cantProductos || !precio) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO compraproducto (IDProducto, IDCompra, CantProductos, Precio) VALUES (?, ?, ?, ?)`;
-    const values = [idProducto, idCompra, cantProductos, precio];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al insertar un registro en la tabla compra_producto:', err);
-        res.status(500).json({ error: 'Error al insertar un registro en la tabla compra_producto' });
-      } else {
-        // Devuelve un mensaje como respuesta
-        res.status(201).json({ message: 'Registro agregado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X POST -H "Content-Type: application/json" -d "{\"idProducto\":2,\"idCompra\":1,\"cantProductos\":35,\"precio\":340}" http://localhost:5000/crud/createCompraProducto
-  //----------------------------------------------------------------------------------------
-
-  // Ruta para actualizar un registro existente por ID en la tabla CompraProducto--------------
-  router.put('/updateCompraProducto/:idCompraProducto', (req, res) => {
-    // Obtén el ID del registro a actualizar desde los parámetros de la URL
-    const idCompraProducto = req.params.idCompraProducto;
-
-    // Recibe los datos actualizados desde el cuerpo de la solicitud (req.body)
-    const { idProducto, idCompra, cantProductos, precio } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
-    if (!idProducto || !idCompra || !cantProductos || !precio) {
-      return res.status(400).json({ error: 'Todos los campos son obligatorios' });
-    }
-
-    // Realiza la consulta SQL para actualizar el registro por ID
-    const sql = `
-      UPDATE compraproducto
-      SET IDProducto = ?, IDCompra = ?, CantProductos = ?, Precio = ?
-      WHERE IDCompraProducto = ?
-    `;
-
-    const values = [idProducto, idCompra, cantProductos, precio, idCompraProducto];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        console.error('Error al actualizar un registro de la tabla compra_producto:', err);
-        res.status(500).json({ error: 'Error al actualizar un registro de la tabla compra_producto' });
-      } else {
-        // Devuelve un mensaje de éxito
-        res.status(200).json({ message: 'Registro actualizado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X PUT -H "Content-Type: application/json" -d "{\"idProducto\":1,\"idCompra\":1,\"cantProductos\":3,\"precio\":150}" http://localhost:5000/crud/updateCompraProducto/1
-  //-------------------------------------------------------------------------------------
-
-  // Ruta para eliminar un registro existente por ID en la tabla CompraProducto-------------------
-  router.delete('/deleteCompraProducto/:idCompraProducto', (req, res) => {
-    // Obtén el ID del registro a eliminar desde los parámetros de la URL
-    const idCompraProducto = req.params.idCompraProducto;
-
-    // Realiza la consulta SQL para eliminar el registro por ID
-    const sql = 'DELETE FROM compraproducto WHERE IDCompraProducto = ?';
-
-    // Ejecuta la consulta
-    db.query(sql, [idCompraProducto], (err, result) => {
-      if (err) {
-        console.error('Error al eliminar un registro de la tabla compra_producto:', err);
-        res.status(500).json({ error: 'Error al eliminar un registro de la tabla compra_producto' });
-      } else {
-        // Devuelve un mensaje de éxito
-        res.status(200).json({ message: 'Registro eliminado exitosamente' });
-      }
-    });
-  });
-
-  //Sentencia
-  //curl -X DELETE http://localhost:5000/crud/deleteCompraProducto/1
-  //---------------------------------------------------------------------------------------
 
    // Ruta para leer registros
   //Ruta para leer la tabla Categoria de la Base de Datos--------------------------------

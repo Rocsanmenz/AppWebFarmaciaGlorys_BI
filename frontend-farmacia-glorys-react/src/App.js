@@ -19,6 +19,7 @@ import CatalogoServicio from './pages/CatalogoServicios';
 import Estadistica1 from './pages/EstadisticaProducto';
 import Catalogo from './pages/CatalogoProductos';
 import SinAcceso from './pages/SinAcceso';
+import NuevaCompra from './pages/CreateCompra';
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
       <Route path="/servicios" element={userRol ? <CatalogoServicio Rol={userRol} /> : <Navigate to="/sinacceso" />} />
       <Route path="/producto-reporte" element={userRol ? <Estadistica1 Rol={userRol} /> : <Navigate to="/sinacceso" />} />
       <Route path="/productos" element={userRol ? <Catalogo Rol={userRol} /> : <Navigate to="/sinacceso" />} />
+      <Route path="/nueva-compra" element={userRol ? <NuevaCompra Rol={userRol} /> : <Navigate to="/sinacceso" />} />
       <Route path="/sinacceso" element={<SinAcceso />} />
     </Routes>
   </Router>

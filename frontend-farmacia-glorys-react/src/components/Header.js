@@ -108,6 +108,9 @@ function Header({ Rol }) {
                 <NavDropdown.Item>
                   <Link to="/compras" className="link-unstyled">Gestión de Compra</Link>
                 </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link to="/nueva-compra" className="link-unstyled">Nueva</Link>
+                </NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link>

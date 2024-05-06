@@ -58,8 +58,8 @@ CREATE TABLE Empleado (
  /*Tabla Producto*/
  CREATE TABLE Producto (
  IDProducto INT	AUTO_INCREMENT NOT NULL,  /*Autoincrementable*/
- NomProducto   VARCHAR(30) NOT NULL,
- DescripProducto VARCHAR(100) NOT NULL,
+ NomProducto   VARCHAR(50) NOT NULL,
+ DescripProducto VARCHAR(500) NOT NULL,
  PrecioProducto DECIMAL(8,2) NOT NULL,
  Estado VARCHAR(10) NOT NULL,
  CantProducto INT NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE Empleado (
  IDServicio INT AUTO_INCREMENT	NOT NULL,  /*Autoincrementable*/
  NombreS  VARCHAR(30) NOT NULL,
  EstadoS VARCHAR(30) NOT NULL,
- Descripcion VARCHAR(100) NOT NULL,
+ Descripcion VARCHAR(300) NOT NULL,
  PrecioS DECIMAL(8,2) NOT NULL,
  imagen LONGTEXT, /*Imagen*/
  PRIMARY KEY (IDServicio) /*Clave Primaria*/
@@ -89,8 +89,8 @@ CREATE TABLE Empleado (
  IDServicioCliente INT AUTO_INCREMENT NOT NULL,  /*Autoincrementable*/
  IDCliente INT NOT NULL,
  IDServicio INT NOT NULL,
- FechaSolicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP, /*Fecha y hora predeterminada del sistema*/
- FechaCita DATETIME NULL,
+ FechaSolicitud DATE,
+ FechaCita DATETIME,
  FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente), /*Relaciones*/
  FOREIGN KEY (IDServicio) REFERENCES Servicio (IDServicio), /*Relaciones*/
  PRIMARY KEY (IDServicioCliente) /*Clave Primaria*/
@@ -101,9 +101,9 @@ CREATE TABLE Empleado (
  IDCompra INT AUTO_INCREMENT NOT NULL,  /*Autoincrementable*/
  IDEmpleado INT NULL,
  IDCliente INT NOT NULL,
- FechaHoraCompra TIMESTAMP DEFAULT CURRENT_TIMESTAMP, /*Fecha y hora predeterminada del sistema*/
- DirecCompra VARCHAR(100) NOT NULL,
- EstadoC VARCHAR(20) NULL,
+ FechaHoraCompra DATE, 
+ DirecCompra VARCHAR(100),
+ EstadoC VARCHAR(20),
  FOREIGN KEY (IDEmpleado) REFERENCES Empleado (IDEmpleado), /*Relaciones*/
  FOREIGN KEY (IDCliente) REFERENCES Cliente (IDCliente), /*Relaciones*/
  PRIMARY KEY (IDCompra) /*Clave Primaria*/
@@ -116,7 +116,6 @@ CREATE TABLE Empleado (
  IDCompra INT NOT NULL,
  CantProductos INT NOT NULL,
  Precio DECIMAL(8,2) NOT NULL,
- TotalCompra DECIMAL (8,2) NOT NULL,
  FOREIGN KEY (IDProducto) REFERENCES Producto (IDProducto), /*Relaciones*/
  FOREIGN KEY (IDCompra) REFERENCES Compra (IDCompra), /*Relaciones*/
  PRIMARY KEY (IDCompraProducto) /*Clave Primaria*/
