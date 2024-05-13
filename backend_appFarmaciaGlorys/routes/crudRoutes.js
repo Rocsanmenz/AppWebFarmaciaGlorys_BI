@@ -885,34 +885,34 @@ module.exports = (db) => {
   //curl -X DELETE http://localhost:5000/crud/deleteServicioCliente/1
   //---------------------------------------------------------------------------------------
 
-  router.post('/createCompra', (req, res) => {
-    // Extraer datos de la solicitud
-    const { IDEmpleado, IDCliente, DirecCompra, EstadoC } = req.body;
+  router.post('/Createcompra', (req, res) => {
+    const { EstadoC, detalle , IDCliente, IDEmpleado, DirecCompra} = req.body;
+    const FechaHoraCompra = new Date();
   
-    // Realizar la inserción de la compra en la tabla Compras
-    const sqlCompra = 'INSERT INTO compra (IDEmpleado, IDCliente, DirecCompra) VALUES (?, ?, ?, ?)';
-    db.query(sqlCompra, [IDEmpleado, IDCliente, DirecCompra, EstadoC], (err, result) => {
-      if (err) {
-        console.error('Error al insertar la compra:', err);
-        return res.status(500).json({ error: 'Error al insertar la compra' });
-      }
-  
-      const IDCompra = result.insertId; // Obtener el ID de la compra insertada
-  
-      // Iterar sobre el detalle de la compra y realizar inserciones en DetalleCompra
-      const sqlDetalle = 'INSERT INTO detallecompra (IDProducto, CantProductos, TipoEntrega, IDCompra) VALUES ?';
-      const values = detalle.map((item) => [ item.IDProducto, item.CantProductos, item.TipoEntrega, IDCompra]);
-      db.query(sqlDetalle, [values], (err, result) => {
+      // Insertar la compra
+      const sqlCompra = 'INSERT INTO compra ( FechaHoraCompra, EstadoC, IDCliente, IDEmpleado, DirecCompra) VALUES (?, ?, ?, ?, ?)';
+      db.query(sqlCompra, [FechaHoraCompra, EstadoC, IDCliente, IDEmpleado, DirecCompra], (err, result) => {
         if (err) {
-          console.error('Error al insertar detalle de compra:', err);
-          return res.status(500).json({ error: 'Error al insertar detalle de compra' });
+          console.error('Error al insertar compra:', err);
+          return res.status(500).json({ error: 'Error al insertar compra' });
         }
   
-        // Devolver respuesta exitosa
-        res.status(201).json({ message: 'Compra y detalle de venta agregados con éxito' });
+          const IDCompra = result.insertId;
+  
+          // Insertar el detalle de compra
+          const sqlDetalle = 'INSERT INTO detallecompra (CantProductos, PrecioProducto, IDProducto, TipoEntrega, IDCompra) VALUES ?';
+          const values = detalle.map((item) => [item.CantProductos, item.PrecioProducto, item.IDProducto, item.TipoEntrega, IDCompra]);
+          db.query(sqlDetalle, [values], (err, result) => {
+            if (err) {
+              console.error('Error al insertar detalle de compra:', err);
+              return res.status(500).json({ error: 'Error al insertar detalle de compra' });
+            }
+    
+            // Devolver respuesta exitosa
+            res.status(201).json({ message: 'Compra y detalle de venta agregados con éxito' });
+          });
+        });
       });
-    });
-  });
 
    // Ruta para leer registros
   //Ruta para leer la tabla Categoria de la Base de Datos--------------------------------

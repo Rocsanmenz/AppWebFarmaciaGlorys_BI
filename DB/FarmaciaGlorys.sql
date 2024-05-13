@@ -115,46 +115,8 @@ CREATE TABLE Empleado (
  IDProducto INT NOT NULL,
  IDCompra INT NOT NULL,
  CantProductos INT NOT NULL,
- Precio DECIMAL(8,2) NOT NULL,
+ PrecioProducto DECIMAL(8,2) NOT NULL,
  FOREIGN KEY (IDProducto) REFERENCES Producto (IDProducto), /*Relaciones*/
  FOREIGN KEY (IDCompra) REFERENCES Compra (IDCompra), /*Relaciones*/
  PRIMARY KEY (IDCompraProducto) /*Clave Primaria*/
  );
- 
-/*Creación de roles*/
-CREATE ROLE 'app_developer', 'app_Read', 'app_Modifier';
- 
-/*Asignación de permisos a roles*/
-GRANT ALL ON farmaciaglorys.* TO 'app_developer';
-GRANT SELECT ON farmaciaglorys.* TO 'app_Read';
-GRANT INSERT, update, delete ON farmaciaglorys.* TO 'app_Modifier';
-
-/*Crear usuarios*/
-CREATE USER 'dev1'@'localhost' identified by 'dev1pass';
-CREATE USER 'read1'@'localhost' identified by 'read1pass';
-CREATE USER 'modi1'@'localhost' identified by 'modi1pass';
-
-/*Asignación de roles a usuarios*/
-GRANT 'app_developer' TO 'dev1'@'localhost';
-GRANT 'app_Read' TO 'read1'@'localhost';
-GRANT 'app_Read', 'app_Modifier' TO 'modi1'@'localhost';
-
-/*Reviso de permiso de usuarios*/
-SHOW GRANTS FOR 'dev1'@'localhost';
-SHOW GRANTS FOR 'dev1'@'localhost' using 'app_developer';
-
- /*Verificar si roles están activos*/
- SELECT CURRENT_ROLE();
- 
- /*Activación de roles*/
- SET DEFAULT ROLE ALL TO
-  'dev1'@'localhost',
-  'read1'@'localhost',
-  'modi1'@'localhost';
- 
-
-
- 
- 
- 
- 

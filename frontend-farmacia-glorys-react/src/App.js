@@ -19,7 +19,7 @@ import CatalogoServicio from './pages/CatalogoServicios';
 import Estadistica1 from './pages/EstadisticaProducto';
 import Catalogo from './pages/CatalogoProductos';
 import SinAcceso from './pages/SinAcceso';
-import NuevaCompra from './pages/CreateCompra';
+import NuevaCompra from './pages/CreateCompras';
 
 function App() {
 
