@@ -227,6 +227,8 @@ function Compra({ Rol }) {
                     setTipoEntrega('');
                     setDirecCompra('');
                     setEstadoC('');
+                    setClientes('');
+                    setEmpleados('');
                     setDetallesCompra([]);
                     // Limpia otros estados según sea necesario
                 } else {

@@ -886,7 +886,7 @@ module.exports = (db) => {
   //---------------------------------------------------------------------------------------
 
   router.post('/Createcompra', (req, res) => {
-    const { EstadoC, detalle , IDCliente, IDEmpleado, DirecCompra} = req.body;
+    const { EstadoC, detalle , IDCliente, IDEmpleado, DirecCompra, TipoEntrega} = req.body;
     const FechaHoraCompra = new Date();
   
       // Insertar la compra
@@ -901,7 +901,7 @@ module.exports = (db) => {
   
           // Insertar el detalle de compra
           const sqlDetalle = 'INSERT INTO detallecompra (CantProductos, PrecioProducto, IDProducto, TipoEntrega, IDCompra) VALUES ?';
-          const values = detalle.map((item) => [item.CantProductos, item.PrecioProducto, item.IDProducto, item.TipoEntrega, IDCompra]);
+          const values = detalle.map((item) => [item.CantProductos, item.PrecioProducto, item.IDProducto, TipoEntrega, IDCompra]);
           db.query(sqlDetalle, [values], (err, result) => {
             if (err) {
               console.error('Error al insertar detalle de compra:', err);
