@@ -261,15 +261,15 @@ function ProductoList({Rol}) {
             <Table striped bordered hover className='table'>
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>N°</th>
                     <th>Nombre de Producto</th>
                     <th>Imagen</th>
                     <th>Descripción</th>
                     <th>Precio</th>
                     <th>Estado</th>
-                    <th>Almacen</th>
+                    <th>Stock</th>
                     <th>Marca</th>
-                    <th>Categoria</th>
+                    <th>Categoría</th>
                     <th>Presentación</th>
                     <th>Acciones</th>
                 </tr>
@@ -283,7 +283,7 @@ function ProductoList({Rol}) {
                     <td>{producto.DescripProducto}</td>
                     <td>{producto.PrecioProducto} C$</td>
                     <td>{producto.Estado}</td>
-                    <td>{producto.CantProducto} Unidades</td>
+                    <td>{producto.CantProducto} U</td>
                     <td>{marcas.find((marca) => marca.IDMarca === producto.IDMarca)?.NombreMarca}</td>
                     <td>{categorias.find((categoria) => categoria.IDCategoria === producto.IDCategoria)?.NombreCategoria}</td>
                     <td>{presentaciones.find((presentacion) => presentacion.IDPresentacion === producto.IDPresentacion)?.NombrePresentacion}</td>

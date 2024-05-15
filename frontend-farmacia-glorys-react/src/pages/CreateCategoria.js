@@ -8,12 +8,6 @@ function CreateCategoria({Rol}) {
   // Crear un estado para cada campo del formulario
     const [NombreCategoria, setNombreCategoria] = useState('');
 
-      //Validar input del nombre de la categoría
-        const handleNombreCategoriaChange = (e) => {
-        const nomC = e.target.value.replace(/[^a-zA-Z ]/g, ''); // Solo agrega letras
-        setNombreCategoria(nomC);
-        };
-
     // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +64,7 @@ function CreateCategoria({Rol}) {
                         type="text"
                         placeholder="Ingrese el nombre de la Categoria"
                         value={NombreCategoria}
-                        onChange={handleNombreCategoriaChange}
+                        onChange={(e) => setNombreCategoria(e.target.value)}
                         />
                     </FloatingLabel>
                     </Col>

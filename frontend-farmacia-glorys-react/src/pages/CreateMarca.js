@@ -8,12 +8,6 @@ function CreateMarca({Rol}) {
   // Crear un estado para cada campo del formulario
     const [NombreMarca, setNombreMarca] = useState('');
 
-      //Validar input del nombre de la marca
-        const handleNombreMarcaChange = (e) => {
-        const nomM = e.target.value.replace(/[^a-zA-Z ]/g, ''); // Solo agrega letras
-        setNombreMarca(nomM);
-        };
-
     // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +64,7 @@ function CreateMarca({Rol}) {
                         type="text"
                         placeholder="Ingrese el nombre de la Marca"
                         value={NombreMarca}
-                        onChange={handleNombreMarcaChange}
+                        onChange={(e) => setNombreMarca(e.target.value)}
                         />
                     </FloatingLabel>
                     </Col>

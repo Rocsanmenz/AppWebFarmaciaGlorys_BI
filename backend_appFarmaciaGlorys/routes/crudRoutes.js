@@ -885,6 +885,39 @@ module.exports = (db) => {
   //curl -X DELETE http://localhost:5000/crud/deleteServicioCliente/1
   //---------------------------------------------------------------------------------------
 
+
+  router.get('/readCompra', (req, res) => {
+    // Utiliza la instancia de la base de datos pasada como parámetro
+    // Realizar una consulta SQL para seleccionar todos los registros
+    const sql = `SELECT detallecompra.IDCompraProducto, usuario.NombreUsuario, compra.FechaHoraCompra, producto.NomProducto, marca.NombreMarca,
+    presentacion.NombrePresentacion, detallecompra.PrecioProducto, detallecompra.CantProductos, detallecompra.TipoEntrega,
+    compra.EstadoC
+    from compra 
+    inner join cliente
+    on compra.IDCliente = cliente.IDCliente
+    inner join usuario 
+    on usuario.IDUsuario = cliente.IDUsuario
+    inner join detallecompra
+    on detallecompra.IDCompra = compra.IDCompra
+    inner join producto
+    on detallecompra.IDProducto = producto.IDProducto
+    inner join marca
+    on producto.IDMarca = marca.IDMarca
+    inner join presentacion
+    on producto.IDPresentacion = presentacion.IDPresentacion`;
+    // Ejecutar la consulta
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error('Error al leer los registros de la tabla compra:', err);
+        res.status(500).json({ error: 'Error al leer los registros de la tabla compra' });
+      } else {
+        // Devolver los registros en formato JSON como respuesta
+        res.status(200).json(result);
+      }
+    });
+  });
+
+
   router.post('/Createcompra', (req, res) => {
     const { EstadoC, detalle , IDCliente, IDEmpleado, DirecCompra, TipoEntrega} = req.body;
     const FechaHoraCompra = new Date();

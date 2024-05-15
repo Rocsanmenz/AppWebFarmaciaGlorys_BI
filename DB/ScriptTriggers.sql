@@ -269,28 +269,6 @@ INSERT INTO bitacora (transaccion, usuario, fecha, tabla)
 VALUES ('DELETE', current_user(), NOW(), 'compraproducto');
 /*----------------------------------------------------------------------------------------------------*/
 
-/*Trigger calculados*/
-/*Trigger para actualizar stock de la tabla producto según compras*/
-DELIMITER $$
-CREATE DEFINER = CURRENT_USER 
-TRIGGER ActualizacionStock
-BEFORE INSERT ON compraproducto
-FOR EACH ROW 
-BEGIN
-	DECLARE P INT DEFAULT 0;
-    DECLARE C INT DEFAULT 0;
-    
-    SET P=NEW.IDProducto;
-    SET C=NEW.CantProductos;
-    
-    IF ((SELECT CantProducto FROM producto WHERE producto.IDProducto=P) > CantProductos) THEN
-    UPDATE producto SET CantProducto=CantProducto - C
-    WHERE IDProducto = P;
-ELSE 
-SIGNAL SQLSTATE 'ERROR' SET MESSAGE_TEXT = 'Cantidad de producto no disponible';
-END IF;
-END$$
-
 /*Trigger para calcular el precio de compra de cada producto*/
 DELIMITER $$
 CREATE DEFINER	= CURRENT_USER
@@ -310,3 +288,27 @@ FOR EACH ROW
 BEGIN
 	SET NEW.totalcompra=NEW.CantProductos * NEW.precio;
 END$$
+
+DROP TRIGGER IF EXISTS SalidaProductos;
+DELIMITER $$
+Use farmaciaglorys$$
+CREATE DEFINER = CURRENT_USER
+TRIGGER SalidaProductos
+BEFORE INSERT ON detallecompra
+FOR EACH ROW
+BEGIN
+	DECLARE idP INT DEFAULT 0;
+    DECLARE cant INT DEFAULT 0;
+    -- Asigna el nuevo IDProducto que se guarda en detalle
+    SET idP = NEW.IDProducto;
+    -- Asigna la cantidad de productos guarda en detalle
+    SET cant = NEW.CantProductos;
+    -- Actualiza la existencia en la tabla producto
+    IF ((SELECT CantProducto FROM producto WHERE producto.IDProducto = idP) > cant) THEN
+    UPDATE producto SET CantProducto = CantProducto - cant
+    WHERE IDProducto = idP;
+    ELSE 
+    SIGNAL SQLSTATE 'ERROR' SET MESSAGE_TEXT = 'Cantidad de producto no disponible';
+    END IF;
+END$$
+DELIMITER ;

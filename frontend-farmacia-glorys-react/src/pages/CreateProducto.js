@@ -96,13 +96,6 @@ function CreateProducto({Rol}) {
                         setShowPresentacionModal(false);
                     };
 
-    
-    //Validar input de la descripción del producto
-    const handleDescripProductoChange = (e) => {
-    const descrip = e.target.value.replace(/[^a-zA-Z ]/g, ''); // Solo agrega letras
-    setDescripProducto(descrip);
-    };
-
 
  // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
@@ -313,7 +306,7 @@ const handleSubmitPresentacion = async (e) => {
                         type="text"
                         placeholder="Escriba aquí"
                         value={DescripProducto}
-                        onChange={handleDescripProductoChange}
+                        onChange={(e) => setDescripProducto(e.target.value)}
                         />
                     </FloatingLabel>
                     </Col>
