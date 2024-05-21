@@ -12,7 +12,7 @@ IDProducto INT,
 IDCliente INT,
 IDEmpleado INT,
 CantProductos INT,
-Precio DECIMAL(8,2),
+PrecioProducto DECIMAL(8,2),
 Total DECIMAL(8,2)
 );
 
