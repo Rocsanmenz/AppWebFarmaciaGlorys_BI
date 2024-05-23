@@ -351,3 +351,49 @@ VALUES (18, @IDCompra, 5, 11.99, 'RETIRO EN SUCURSAL');
 
 SELECT * FROM Compra;
 SELECT * FROM Cliente;
+
+USE farmaciaglorys;
+-- mil registros aleatorios
+
+DELIMITER $$
+
+CREATE PROCEDURE InsertarVentas()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE rand_emp INT;
+    DECLARE rand_cli INT;
+    DECLARE rand_prod INT;
+    DECLARE rand_cant INT;
+    DECLARE rand_prec DECIMAL(5,2);
+    DECLARE rand_estado ENUM('ENTREGADA', 'EN PROCESO', 'EN ESPERA');
+
+    WHILE i <= 1000 DO
+        SET rand_emp = FLOOR(1 + (RAND() * 2)); -- 1 or 2
+        SET rand_cli = FLOOR(1 + (RAND() * 5)); -- 1 to 5
+        SET rand_prod = FLOOR(1 + (RAND() * 20)); -- 1 to 20
+        SET rand_cant = FLOOR(1 + (RAND() * 10)); -- 1 to 10
+        SET rand_prec = ROUND(1 + (RAND() * 700), 2); -- 1 to 700
+        SET rand_estado = ELT(FLOOR(1 + (RAND() * 3)), 'ENTREGADA', 'EN PROCESO', 'EN ESPERA');
+
+        -- Insert into compra table
+        INSERT INTO compra (IDEmpleado, IDCliente, FechaHoraCompra, DirecCompra, EstadoC)
+        VALUES (rand_emp, rand_cli, NOW(), 'Juigalpa', rand_estado);
+
+        -- Get last inserted ID for compra
+        SET @IDCompra = LAST_INSERT_ID();
+
+        -- Insert into detallecompra table
+        INSERT INTO detallecompra (IDProducto, IDCompra, CantProductos, PrecioProducto, TipoEntrega)
+        VALUES (rand_prod, @IDCompra, rand_cant, rand_prec, 'RETIRO EN SUCURSAL');
+
+        SET i = i + 1;
+    END WHILE;
+END$$
+
+DELIMITER ;
+
+-- Ejecutar el procedimiento
+CALL InsertarVentas();
+
+-- Borrar el procedimiento para limpiar
+DROP PROCEDURE InsertarVentas;
