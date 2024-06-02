@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-module.exports = (db) => {
+module.exports = (db2) => {
 
   router.get('/ventasporanio', (req, res) => {
 
@@ -17,7 +17,7 @@ GROUP BY
     `;
 
     // Ejecutar la consulta
-    db.query(sql, (err, result) => {
+    db2.query(sql, (err, result) => {
       if (err) {
         console.error('Error al leer registros:', err);
         res.status(500).json({ error: 'Error al leer registros de la tabla ventas' });
