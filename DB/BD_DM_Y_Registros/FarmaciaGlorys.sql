@@ -29,6 +29,7 @@ CREATE TABLE Empleado (
  IDCliente INT	AUTO_INCREMENT NOT NULL,  /*Autoincrementable*/
  CorreoC NVARCHAR(30) NOT NULL,
  TelefonoC VARCHAR(8) NOT NULL,
+ Procedencia VARCHAR(30) NOT NULL,
  IDUsuario INT UNIQUE,
  PRIMARY KEY (IDCliente), /*Clave Primaria*/
  FOREIGN KEY (IDUsuario) REFERENCES Usuario (IDUsuario) /*Relaciones*/
@@ -116,6 +117,7 @@ CREATE TABLE Empleado (
  IDCompra INT NOT NULL,
  CantProductos INT NOT NULL,
  PrecioProducto DECIMAL(8,2) NOT NULL,
+ TipoEntrega VARCHAR(20) NOT NULL,
  FOREIGN KEY (IDProducto) REFERENCES Producto (IDProducto), /*Relaciones*/
  FOREIGN KEY (IDCompra) REFERENCES Compra (IDCompra), /*Relaciones*/
  PRIMARY KEY (IDCompraProducto) /*Clave Primaria*/
