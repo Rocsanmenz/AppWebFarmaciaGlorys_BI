@@ -100,16 +100,17 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
       }
     };
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Gráfico de pastel para ver la cantidad de productos por categoría
     useEffect(() => {
       fetch('http://localhost:5000/crud/productosPorCategoria')
           .then((response) => response.json())
           .then((data) => setProductosPorCategoria(data))
           .catch((error) => console.error('Error al obtener los productos por categoría:', error));
-    }, []);
+     }, []);
 
 
- useEffect(() => {
+  useEffect(() => {
   if (productosPorCategoria.length > 0) {
   const ctx = document.getElementById('myCategories');
 
@@ -148,8 +149,8 @@ function Estadisticas({ Rol }) {  // Declaración del componente Estadisticas co
         }]
     },
     options: {
-       responsive: true,
-       plugins: {
+        responsive: true,
+        plugins: {
             Legend: {
               position: 'top',
         },

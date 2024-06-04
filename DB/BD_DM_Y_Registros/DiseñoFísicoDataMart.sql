@@ -21,6 +21,7 @@ CREATE TABLE DIM_PRODUCTO (
 IDProducto INT PRIMARY KEY,
 NomProducto VARCHAR(30),
 PrecioProducto DECIMAL (8,2),
+PrecioCompra DECIMAL (8,2),
 CantProducto INT,
 NombreMarca VARCHAR(20),
 NombreCategoria VARCHAR(20),

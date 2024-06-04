@@ -22,6 +22,7 @@ import SinAcceso from './pages/SinAcceso';
 import NuevaCompra from './pages/CreateCompras';
 import GestionCompra from './pages/GestionCompra';
 import Dashboard from './pages/Dashboard';
+import Grafico from './pages/GraficoDM';
 
 function App() {
 
@@ -59,6 +60,7 @@ function App() {
       <Route path="/nueva-compra" element={userRol ? <NuevaCompra Rol={userRol} /> : <Navigate to="/sinacceso" />} />
       <Route path="/compras" element={userRol ? <GestionCompra Rol={userRol} /> : <Navigate to="/sinacceso" />} />
       <Route path="/reporte" element={userRol ? <Dashboard Rol={userRol} /> : <Navigate to="/sinacceso" />} />
+      <Route path="/grafico" element={userRol ? <Grafico Rol={userRol} /> : <Navigate to="/sinacceso" />} />
       <Route path="/sinacceso" element={<SinAcceso />} />
     </Routes>
   </Router>

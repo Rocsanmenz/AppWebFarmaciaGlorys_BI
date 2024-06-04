@@ -396,7 +396,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/ProcesoETL/ExtraccionEmpleado.ktr</filename>
+      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/Proyecto/AppWebFarmaciaGlorys_BI/DB/ProcesoETL/ExtraccionEmpleado.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -435,7 +435,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/ProcesoETL/ExtraccionCliente.ktr</filename>
+      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/Proyecto/AppWebFarmaciaGlorys_BI/DB/ProcesoETL/ExtraccionCliente.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -474,7 +474,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/ProcesoETL/ExtraccionProducto.ktr</filename>
+      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/Proyecto/AppWebFarmaciaGlorys_BI/DB/ProcesoETL/ExtraccionProducto.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -513,7 +513,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/ProcesoETL/ExtraccionFecha.ktr</filename>
+      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/Proyecto/AppWebFarmaciaGlorys_BI/DB/ProcesoETL/ExtraccionFecha.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -552,7 +552,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/ProcesoETL/TablaHechos.ktr</filename>
+      <filename>C:/Users/Joy Cruz/OneDrive/Documentos/OneDrive/Escritorio/Proyecto/AppWebFarmaciaGlorys_BI/DB/ProcesoETL/TablaHechos.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>

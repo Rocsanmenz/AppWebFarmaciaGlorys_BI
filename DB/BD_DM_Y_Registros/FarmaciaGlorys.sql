@@ -62,6 +62,7 @@ CREATE TABLE Empleado (
  NomProducto   VARCHAR(50) NOT NULL,
  DescripProducto VARCHAR(500) NOT NULL,
  PrecioProducto DECIMAL(8,2) NOT NULL,
+ PrecioCompra DECIMAL(8,2) NOT NULL,
  Estado VARCHAR(10) NOT NULL,
  CantProducto INT NOT NULL,
  imagen LONGTEXT, /*Imagen*/

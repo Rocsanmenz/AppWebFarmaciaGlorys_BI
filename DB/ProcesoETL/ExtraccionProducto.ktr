@@ -561,7 +561,7 @@
       <schema_name/>
     </partitioning>
     <connection>conexion_productos</connection>
-    <sql>SELECT IDProducto, NomProducto, PrecioProducto, CantProducto, NombreMarca, NombreCategoria, NombrePresentacion
+    <sql>SELECT IDProducto, NomProducto, PrecioProducto, PrecioCompra, CantProducto, NombreMarca, NombreCategoria, NombrePresentacion
 FROM producto 
 INNER JOIN marca
 ON producto.IDMarca = marca.IDMarca
@@ -630,6 +630,29 @@ ON producto.IDPresentacion = presentacion.IDPresentacion;</sql>
         <precision>2</precision>
         <origin>ExtraccionProducto</origin>
         <comments>PrecioProducto</comments>
+        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>es_NI</date_format_locale>
+        <date_format_timezone>America/Managua</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Number</type>
+        <storagetype>normal</storagetype>
+        <name>PrecioCompra</name>
+        <length>8</length>
+        <precision>2</precision>
+        <origin>ExtraccionProducto</origin>
+        <comments>PrecioCompra</comments>
         <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
