@@ -127,19 +127,19 @@ INSERT INTO usuario (NombreUsuario, Contraseña, Rol)
 VALUES ('Esmeralda Ruíz', '280912S', 'Cliente');
 SET @IDUsuario = LAST_INSERT_ID();
 INSERT INTO cliente (CorreoC, TelefonoC, Procedencia, IDUsuario)
-VALUES ('esmeraldita603@gmail.com', '88962742', 'Juigalpa', @IDUsuario);
+VALUES ('esmeraldita603@gmail.com', '88962742', 'La libertad', @IDUsuario);
 
 INSERT INTO usuario (NombreUsuario, Contraseña, Rol)
 VALUES ('Alfonso López', 'alfon12', 'Cliente');
 SET @IDUsuario = LAST_INSERT_ID();
 INSERT INTO cliente (CorreoC, TelefonoC, Procedencia, IDUsuario)
-VALUES ('lopezalfonso@gmail.com', '57395726', 'Juigalpa', @IDUsuario);
+VALUES ('lopezalfonso@gmail.com', '57395726', 'La libertad', @IDUsuario);
 
 INSERT INTO usuario (NombreUsuario, Contraseña, Rol)
 VALUES ('Suleymari', 'sulimay6', 'Cliente');
 SET @IDUsuario = LAST_INSERT_ID();
 INSERT INTO cliente (CorreoC, TelefonoC, Procedencia, IDUsuario)
-VALUES ('hellokitty@gmail.com', '87264542', 'Juigalpa', @IDUsuario);
+VALUES ('hellokitty@gmail.com', '87264542', 'Cuapa', @IDUsuario);
 
 INSERT INTO usuario (NombreUsuario, Contraseña, Rol)
 VALUES ('Alejandra Gaitán', 'ale123', 'Cliente');
