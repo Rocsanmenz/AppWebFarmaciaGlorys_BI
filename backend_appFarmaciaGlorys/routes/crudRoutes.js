@@ -566,16 +566,16 @@ module.exports = (db) => {
   // Ruta para crear un nuevo registro con ID específico en la tabla Producto------------
   router.post('/createProducto', (req, res) => {
     // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {NomProducto, DescripProducto, PrecioProducto, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion } = req.body;
+    const {NomProducto, DescripProducto, PrecioProducto, PrecioCompra, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion } = req.body;
 
     // Verifica si se proporcionaron los datos necesarios
-    if (!NomProducto || !DescripProducto || !PrecioProducto || !Estado || !CantProducto || !imagen || !IDMarca || !IDCategoria || !IDPresentacion) {
+    if (!NomProducto || !DescripProducto || !PrecioProducto || !PrecioCompra || !Estado || !CantProducto || !imagen || !IDMarca || !IDCategoria || !IDPresentacion) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
     // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO producto (NomProducto, DescripProducto, PrecioProducto, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const values = [NomProducto, DescripProducto, PrecioProducto, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion];
+    const sql = `INSERT INTO producto (NomProducto, DescripProducto, PrecioProducto, PrecioCompra, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [NomProducto, DescripProducto, PrecioProducto, PrecioCompra, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion];
 
     // Ejecuta la consulta
     db.query(sql, values, (err, result) => {
@@ -599,21 +599,21 @@ module.exports = (db) => {
     const IDProducto = req.params.IDProducto;
 
     // Recibe los datos actualizados desde el cuerpo de la solicitud (req.body)
-    const { NomProducto, DescripProducto, PrecioProducto, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion } = req.body;
+    const { NomProducto, DescripProducto, PrecioProducto, PrecioCompra, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion } = req.body;
 
     // Verifica si se proporcionaron los datos necesarios
-    if (!NomProducto || !DescripProducto || !PrecioProducto || !Estado || !CantProducto || !imagen || !IDMarca || !IDCategoria || !IDPresentacion) {
+    if (!NomProducto || !DescripProducto || !PrecioProducto || !PrecioCompra || !Estado || !CantProducto || !imagen || !IDMarca || !IDCategoria || !IDPresentacion) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
     // Realiza la consulta SQL para actualizar el registro por ID
     const sql = `
       UPDATE producto
-      SET NomProducto = ?, DescripProducto = ?, PrecioProducto = ?, Estado = ?, CantProducto = ?, imagen = ?, IDMarca = ?, IDCategoria = ?, IDPresentacion = ?
+      SET NomProducto = ?, DescripProducto = ?, PrecioProducto = ?, PrecioCompra = ?, Estado = ?, CantProducto = ?, imagen = ?, IDMarca = ?, IDCategoria = ?, IDPresentacion = ?
       WHERE IDProducto = ?
     `;
 
-    const values = [NomProducto, DescripProducto, PrecioProducto, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion, IDProducto];
+    const values = [NomProducto, DescripProducto, PrecioProducto, PrecioCompra, Estado, CantProducto, imagen, IDMarca, IDCategoria, IDPresentacion, IDProducto];
 
     // Ejecuta la consulta
     db.query(sql, values, (err, result) => {

@@ -11,9 +11,11 @@ function Grafico ({Rol}) {
     const [productos, setProductos] = useState([]);  // Declaración del estado 'productos' y su función 'setProductos' a través de useState, con un valor inicial de un array vacío
     const [clientes, setClientes] = useState([]);
     const [categorias, setCategorias] = useState([]);
+    const [fechas, setFechas] = useState([]);
     const [myChart, setMyChart] = useState(null);
     const [myChart2, setMyChart2] = useState(null);
     const [myChart3, setMyChart3] = useState(null);
+    const [myChart4, setMyChart4] = useState(null);
 
 
     // Gráfico 1 ////////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +169,50 @@ function Grafico ({Rol}) {
         setMyChart3(chart)
         }
     }, [categorias]);
+
+    // Gráfico 4 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    useEffect(() => {
+        fetch('http://localhost:5000/Estadistica/ventasporanio')  // Realiza una solicitud GET al servidor para obtener productos
+          .then((response) => response.json())  // Convierte la respuesta a formato JSON
+          .then((data) => setFechas(data))  // Almacena los productos en el estado 'productos'
+          .catch((error) => console.error('Error al obtener las fechas:', error));  // Manejo de errores en caso de fallar la solicitud
+    }, []);  
+
+    useEffect(() => {
+        if (fechas.length > 0) {  
+          const fech = document.getElementById('myChart4');  // Obtiene el elemento canvas con el ID 'myChart'
+    
+            if (myChart4 !== null) {
+                myChart4.destroy(); // Destruye el gráfico existente antes de crear uno nuevo para evitar conflictos
+            }
+
+    
+            const años = fechas.map((fecha) => fecha.Anyo);  // Extrae los nombres de los productos
+            const ventasTotales = fechas.map((fecha) => fecha.Ventas_totales);
+
+            const grafico4 = new Chart(fech, {  // Crea un nuevo gráfico de tipo 'bar' con Chart.js y lo asigna al elemento canvas
+                type: 'bar',
+                data: {
+                labels: años,  // Asigna los nombres de productos como etiquetas para el eje X
+                datasets: [{
+                  label: 'Total de ventas por año',  // Etiqueta para la leyenda del gráfico
+                  data: ventasTotales,  // Asigna las cantidades de productos para la visualización
+                  backgroundColor: 'rgba(51, 214, 18, 0.843)',  // Define el color de fondo de las barras
+                  borderColor: 'rgba(51, 214, 18, 0)',  // Define el color del borde de las barras
+                  borderWidth: 1  // Define el ancho del borde de las barras
+                }]
+            },
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: true  // Comienza el eje Y desde cero
+                }
+                }
+            }
+            });
+            setMyChart4(grafico4); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
+        }
+        }, [fechas]);
         
     return(
         <div>
@@ -199,6 +245,15 @@ function Grafico ({Rol}) {
                 <Card.Body>
                     <Card.Title className='title'>Ventas totales por categoría</Card.Title>
                     <canvas id="myCategories"  height="120"></canvas>
+                </Card.Body>
+                    </Card>
+                </Col> 
+
+                <Col sm="6" md="6" lg="6">
+                <Card>
+                <Card.Body>
+                    <Card.Title className='title'>Ventas totales por año</Card.Title>
+                    <canvas id="myChart4"  height="120"></canvas>
                 </Card.Body>
                     </Card>
                 </Col> 

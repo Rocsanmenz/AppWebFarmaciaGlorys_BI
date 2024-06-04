@@ -11,6 +11,7 @@ function ProductoList({Rol}) {
         NomProducto: '',
         DescripProducto: '',
         PrecioProducto: '',
+        PrecioCompra: '',
         Estado: '',
         CantProducto: '',
         imagen: '',
@@ -56,6 +57,7 @@ function ProductoList({Rol}) {
         const nomproducto = producto.NomProducto.toLowerCase();
         const descripproducto = producto.DescripProducto.toLowerCase();
         const precioproducto = producto.PrecioProducto;
+        const preciocompra = producto.PrecioCompra;
         const estado = producto.Estado.toLowerCase();
         const cantproducto = producto.CantProducto;
         const marca = marcas.find((marca) => marca.IDMarca === producto.IDMarca)?.NombreMarca.toLowerCase();
@@ -68,6 +70,7 @@ function ProductoList({Rol}) {
         nomproducto.includes(search) ||
         descripproducto.includes(search) ||
         precioproducto === (search) ||
+        preciocompra === (search) ||
         estado.includes(search) ||
         cantproducto === (search) ||
         marca.includes(search) ||
@@ -84,6 +87,7 @@ function ProductoList({Rol}) {
         NomProducto: producto.NomProducto,
         DescripProducto: producto.DescripProducto,
         PrecioProducto: producto.PrecioProducto,
+        PrecioCompra: producto.PrecioCompra,
         Estado: producto.Estado,
         CantProducto: producto.CantProducto,
         imagen: producto.imagen,
@@ -266,6 +270,7 @@ function ProductoList({Rol}) {
                     <th>Imagen</th>
                     <th>Descripción</th>
                     <th>Precio</th>
+                    <th>Precio de Compra</th>
                     <th>Estado</th>
                     <th>Stock</th>
                     <th>Marca</th>
@@ -282,6 +287,7 @@ function ProductoList({Rol}) {
                     <td><img src={producto.imagen} alt={producto.NomProducto} style={{ maxWidth: '100px' }} /></td>
                     <td>{producto.DescripProducto}</td>
                     <td>{producto.PrecioProducto} C$</td>
+                    <td>{producto.PrecioCompra} C$</td>
                     <td>{producto.Estado}</td>
                     <td>{producto.CantProducto} U</td>
                     <td>{marcas.find((marca) => marca.IDMarca === producto.IDMarca)?.NombreMarca}</td>
@@ -355,6 +361,18 @@ function ProductoList({Rol}) {
                             placeholder="Escriba aquí"
                             name="PrecioProducto"
                             value={formData.PrecioProducto}
+                            onChange={handleFormChange}
+                        />
+                        </FloatingLabel>
+                    </Col>
+
+                    <Col sm="6" md="6" lg="6">
+                        <FloatingLabel controlId="PrecioCompra" label="Precio de compra del Producto">
+                        <Form.Control
+                            type="number"
+                            placeholder="Escriba aquí"
+                            name="PrecioCompra"
+                            value={formData.PrecioCompra}
                             onChange={handleFormChange}
                         />
                         </FloatingLabel>

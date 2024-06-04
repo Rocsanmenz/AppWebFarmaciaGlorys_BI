@@ -10,6 +10,7 @@ function CreateProducto({Rol}) {
     const [NomProducto, setNomProducto] = useState('');
     const [DescripProducto, setDescripProducto] = useState('');
     const [PrecioProducto, setPrecioProducto] = useState('');
+    const [PrecioCompra, setPrecioCompra] = useState('');
     const [Estado, setEstado] = useState('');
     const [CantProducto, setCantProducto] = useState('');
 
@@ -102,7 +103,7 @@ function CreateProducto({Rol}) {
     e.preventDefault();
 
     //Validar los campos
-    if (!NomProducto || !DescripProducto || !PrecioProducto || !Estado || !CantProducto || !imagen || !IDMarca || !IDCategoria || !IDPresentacion) {
+    if (!NomProducto || !DescripProducto || !PrecioProducto || !PrecioCompra ||!Estado || !CantProducto || !imagen || !IDMarca || !IDCategoria || !IDPresentacion) {
         alert('Debe completar todos los campos');
         return;
     }
@@ -112,6 +113,7 @@ function CreateProducto({Rol}) {
     NomProducto,
     DescripProducto,
     PrecioProducto,
+    PrecioCompra,
     Estado,
     CantProducto,
     imagen,
@@ -137,6 +139,7 @@ function CreateProducto({Rol}) {
         setNomProducto('');
         setDescripProducto('');
         setPrecioProducto('');
+        setPrecioCompra('');
         setEstado('');
         setCantProducto('');
         setIDMarca('');
@@ -319,6 +322,19 @@ const handleSubmitPresentacion = async (e) => {
                         placeholder="Ingrese el precio del producto"
                         value={PrecioProducto}
                         onChange={(e) => setPrecioProducto(e.target.value)}
+                        />
+                    </FloatingLabel>
+                    </Col>
+
+                    
+                    <Col sm="6" md="6" lg="4">
+                    <FloatingLabel controlId="PrecioCompra" label="Precio de compra del producto">
+                        <Form.Control
+                        type="number"
+                        min={1} //mínimo de número
+                        placeholder="Ingrese el precio de compra del producto"
+                        value={PrecioCompra}
+                        onChange={(e) => setPrecioCompra(e.target.value)}
                         />
                     </FloatingLabel>
                     </Col>
