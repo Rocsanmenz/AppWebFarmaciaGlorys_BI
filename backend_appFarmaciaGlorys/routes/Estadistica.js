@@ -105,62 +105,6 @@ GROUP BY
     });
   });
 
-  router.get('/ventasporproducto', (req, res) => {
-
-    const sql = `SELECT 
-    p.IDProducto, 
-    p.NomProducto, 
-    SUM(hv.CantProductos) AS Cantidad_vendida, 
-    SUM(hv.Total) AS Ventas_totales
-FROM 
-    H_Ventas hv
-JOIN 
-    Dim_Producto p ON hv.IDProducto = p.IDProducto
-GROUP BY 
-    p.IDProducto, p.NomProducto;
-    `;
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer registros:', err);
-        res.status(500).json({ error: 'Error al leer registros de la tabla ventas por producto' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  router.get('/ventasdestock', (req, res) => {
-
-    const sql = `SELECT 
-    p.NomProducto,
-    SUM(hv.Total) AS Ventas_Totales
-FROM 
-    H_Ventas hv
-JOIN 
-    Dim_Producto p ON hv.IDProducto = p.IDProducto
-WHERE 
-    hv.CantProductos > 0
-GROUP BY 
-    p.NomProducto
-ORDER BY 
-    Ventas_Totales DESC;
-`;
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer registros:', err);
-        res.status(500).json({ error: 'Error al leer registros de la tabla ventas por mes' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
   router.get('/ventasporcategoria', (req, res) => {
 
     const sql = `SELECT 
@@ -213,63 +157,6 @@ ORDER BY
     });
   });
 
-  router.get('/ventaspormes', (req, res) => {
-
-    const sql = `SELECT 
-    p.NomProducto,
-    t.Mes,
-    t.Anyo,
-    SUM(hv.Total) AS Ventas_Totales
-FROM 
-    H_Ventas hv
-JOIN 
-    Dim_Producto p ON hv.IDProducto = p.IDProducto
-JOIN 
-    Dim_Tiempo t ON hv.IDTiempo = t.IDTiempo
-GROUP BY 
-    p.NomProducto, t.Mes, t.Anyo
-ORDER BY 
-    t.Anyo, t.Mes, Ventas_Totales DESC;`;
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer registros:', err);
-        res.status(500).json({ error: 'Error al leer registros de la tabla ventas por mes' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  router.get('/ventastop5', (req, res) => {
-
-    const sql = `SELECT 
-    p.NomProducto,
-    SUM(hv.Total) AS Ventas_Totales
-FROM 
-    H_Ventas hv
-JOIN 
-    Dim_Producto p ON hv.IDProducto = p.IDProducto
-GROUP BY 
-    p.NomProducto
-ORDER BY 
-    Ventas_Totales DESC
-LIMIT 5;`;
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer registros:', err);
-        res.status(500).json({ error: 'Error al leer registros de la tabla ventas cantidad top 5' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-  
   router.get('/top5porcantidad', (req, res) => {
 
     const sql = `SELECT 
@@ -420,32 +307,6 @@ WHERE
     t.Anyo = '2024'
 GROUP BY
     c.NombreUsuario;
-`;
-
-    // Ejecutar la consulta
-    db.query(sql, (err, result) => {
-      if (err) {
-        console.error('Error al leer registros:', err);
-        res.status(500).json({ error: 'Error al leer registros de la tabla ventas por mes' });
-      } else {
-        // Devolver los registros en formato JSON como respuesta
-        res.status(200).json(result);
-      }
-    });
-  });
-
-  router.get('/mesdeventa', (req, res) => {
-
-    const sql = `SELECT DISTINCT
-    c.NombreUsuario
-FROM
-    H_VENTAS v
-JOIN
-    DIM_CLIENTE c ON v.IDCliente = c.IDCliente
-JOIN
-    DIM_TIEMPO t ON v.IDTiempo = t.IDTiempo
-WHERE
-    t.Mes = 5;
 `;
 
     // Ejecutar la consulta
