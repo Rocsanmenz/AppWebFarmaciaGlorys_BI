@@ -321,6 +321,8 @@ GROUP BY
     });
   });
 
+  
+
   router.get('/ventasporprocedencia', (req, res) => {
 
     const sql = `SELECT
