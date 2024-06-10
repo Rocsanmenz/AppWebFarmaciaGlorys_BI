@@ -347,6 +347,32 @@ GROUP BY
     });
   });
 
+  router.get('/mostrar1', (req, res) => {
+
+    const sql = `SELECT 
+    p.NomProducto,
+    SUM(hv.CantProductos) AS Cantidad_Total_Vendida
+FROM 
+    H_Ventas hv
+JOIN 
+    Dim_Producto p ON hv.IDProducto = p.IDProducto
+GROUP BY 
+    p.NomProducto
+ORDER BY 
+    Cantidad_Total_Vendida DESC;`;
+
+    // Ejecutar la consulta
+    db.query(sql, (err, result) => {
+      if (err) {
+        console.error('Error al leer registros:', err);
+        res.status(500).json({ error: 'Error al leer registros de la tabla ventas por mes' });
+      } else {
+        // Devolver los registros en formato JSON como respuesta
+        res.status(200).json(result);
+      }
+    });
+  });
+
   return router;
 };
 

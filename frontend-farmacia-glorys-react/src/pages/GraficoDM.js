@@ -73,6 +73,39 @@ function Grafico ({Rol}) {
         }
         }, [productos]);
 
+        //Reporte 
+    const generarReporteAlmacenImg = async () => {
+        try {
+            const canvas = await html2canvas(document.getElementById('myChart'));
+            const pdf = new jsPDF();
+            const imgData = canvas.toDataURL('image/png');
+            pdf.text("Reporte de cantidad total vendida por producto", 60, 10);
+            pdf.addImage(imgData, 'PNG', 46, 20, 120, 120);
+
+            fetch('http://localhost:5000/Estadistica/mostrar1') 
+            .then((response) => response.json())  
+            .then((productos) => {
+            let y = 150; 
+    
+            productos.forEach((pro) => {  
+                pdf.text(`Nombre del Producto: ${pro.NomProducto}`, 20, y);  
+                pdf.text(`Cantiddad Vendida: ${pro.Cantidad_Total_Vendida}`, 20, y + 10);  
+    
+                y += 30; 
+                if (y >= 280) { 
+                    pdf.addPage();
+                y = 15; 
+                }
+            });
+    
+                pdf.save("reporte_ventas_por_producto.pdf");  
+            })
+
+            } catch (error) {
+            console.error('Error al generar el reporte con imagen:', error);
+            }
+        };
+
         // Gráfico 2 //////////////////////////////////////////////////////////////////////////////////////////////
         useEffect(() => {
             fetch('http://localhost:5000/Estadistica/ventasporprocedencia')  // Realiza una solicitud GET al servidor para obtener productos
@@ -116,6 +149,39 @@ function Grafico ({Rol}) {
                 setMyChart2(grafico2); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
             }
             }, [clientes]);
+
+            //Reporte 1
+            const generarReporteAlmacenImg1 = async () => {
+                try {
+                    const canvas = await html2canvas(document.getElementById('myChart2'));
+                    const pdf = new jsPDF();
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.text("Reporte de ventas por procedencia", 65, 10);
+                    pdf.addImage(imgData, 'PNG', 10, 20, 120, 120);
+
+                    fetch('http://localhost:5000/Estadistica/ventasporprocedencia') 
+                    .then((response) => response.json())  
+                    .then((clientes) => {
+                    let y = 150; 
+            
+                    clientes.forEach((cliente) => {  
+                        pdf.text(`Procedencia: ${cliente.Procedencia}`, 20, y);  
+                        pdf.text(`Ventas Totales: ${cliente.TotalVentas}`, 20, y + 10);  
+            
+                        y += 30; 
+                        if (y >= 280) { 
+                            pdf.addPage();
+                        y = 15; 
+                        }
+                    });
+            
+                        pdf.save("reporte_ventas_procedencia.pdf");  
+                    })
+
+                    } catch (error) {
+                    console.error('Error al generar el reporte con imagen:', error);
+                    }
+                };
 
     //Gráfico 3 ///////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
@@ -181,6 +247,39 @@ function Grafico ({Rol}) {
         }
     }, [categorias]);
 
+    //Reporte 2
+    const generarReporteAlmacenImg2 = async () => {
+        try {
+            const canvas = await html2canvas(document.getElementById('myCategories'));
+            const pdf = new jsPDF();
+            const imgData = canvas.toDataURL('image/png');
+            pdf.text("Reporte de ventas por categoría", 65, 10);
+            pdf.addImage(imgData, 'PNG', 46, 20, 120, 120);
+
+            fetch('http://localhost:5000/Estadistica/ventasporcategoria') 
+            .then((response) => response.json())  
+            .then((categorias) => {
+            let y = 150; 
+    
+            categorias.forEach((cate) => {  
+                pdf.text(`Categoría: ${cate.NombreCategoria}`, 20, y);  
+                pdf.text(`Ventas Totales: ${cate.Ventas_Totales}`, 20, y + 10);  
+    
+                y += 30; 
+                if (y >= 280) { 
+                    pdf.addPage();
+                y = 15; 
+                }
+            });
+    
+                pdf.save("reporte_ventas_categoría.pdf");  
+            })
+
+            } catch (error) {
+            console.error('Error al generar el reporte con imagen:', error);
+            }
+        };
+
     // Gráfico 4 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
         fetch('http://localhost:5000/Estadistica/ventasporanio')  // Realiza una solicitud GET al servidor para obtener productos
@@ -224,6 +323,39 @@ function Grafico ({Rol}) {
             setMyChart4(grafico4); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
         }
         }, [fechas]);
+        
+        //Reporte 3
+        const generarReporteAlmacenImg3 = async () => {
+            try {
+                const canvas = await html2canvas(document.getElementById('myChart4'));
+                const pdf = new jsPDF();
+                const imgData = canvas.toDataURL('image/png');
+                pdf.text("Reporte de ventas por año", 65, 10);
+                pdf.addImage(imgData, 'PNG', 10, 20, 120, 120);
+    
+                fetch('http://localhost:5000/Estadistica/ventasporanio') 
+                .then((response) => response.json())  
+                .then((fechas) => {
+                let y = 150; 
+        
+                fechas.forEach((fecha) => {  
+                    pdf.text(`Año: ${fecha.Anyo}`, 20, y);  
+                    pdf.text(`Ventas Totales: ${fecha.Ventas_totales}`, 20, y + 10);  
+        
+                    y += 30; 
+                    if (y >= 280) { 
+                        pdf.addPage();
+                    y = 15; 
+                    }
+                });
+        
+                    pdf.save("reporte_ventas_por_año.pdf");  
+                })
+    
+                } catch (error) {
+                console.error('Error al generar el reporte con imagen:', error);
+                }
+            };
 
     // Gráfico 5 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
@@ -267,7 +399,40 @@ function Grafico ({Rol}) {
             });
             setMyChart5(grafico5); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
         }
-        }, [fechas]);
+        }, [tiempos]);
+
+    //Reporte 4
+    const generarReporteAlmacenImg4 = async () => {
+        try {
+            const canvas = await html2canvas(document.getElementById('myChart5'));
+            const pdf = new jsPDF();
+            const imgData = canvas.toDataURL('image/png');
+            pdf.text("Reporte de ventas por mes", 65, 10);
+            pdf.addImage(imgData, 'PNG', 10, 20, 120, 120);
+
+            fetch('http://localhost:5000/Estadistica/ventaspormes2024') 
+            .then((response) => response.json())  
+            .then((tiempos) => {
+            let y = 150; 
+    
+            tiempos.forEach((tiem) => {  
+                pdf.text(`Mes: ${tiem.Mes}`, 20, y);  
+                pdf.text(`Ventas Totales: ${tiem.Ventas_totales}`, 20, y + 10);  
+    
+                y += 30; 
+                if (y >= 280) { 
+                    pdf.addPage();
+                y = 15; 
+                }
+            });
+    
+                pdf.save("reporte_ventas_por_mes.pdf");  
+            })
+
+            } catch (error) {
+            console.error('Error al generar el reporte con imagen:', error);
+            }
+        };
 
     // Gráfico 6 ////////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
@@ -313,6 +478,39 @@ function Grafico ({Rol}) {
         }
         }, [dias]);
 
+     //Reporte 5
+        const generarReporteAlmacenImg5 = async () => {
+        try {
+            const canvas = await html2canvas(document.getElementById('myChart6'));
+            const pdf = new jsPDF();
+            const imgData = canvas.toDataURL('image/png');
+            pdf.text("Reporte de ventas totales por día de un mes y año específicos", 20, 10);
+            pdf.addImage(imgData, 'PNG', 10, 20, 120, 120);
+
+            fetch('http://localhost:5000/Estadistica/ventastotal') 
+            .then((response) => response.json())  
+            .then((dias) => {
+            let y = 150; 
+    
+            dias.forEach((di) => {  
+                pdf.text(`Día: ${di.Dia}`, 20, y);  
+                pdf.text(`Ventas Totales: ${di.Ventas_totales}`, 20, y + 10);  
+    
+                y += 30; 
+                if (y >= 280) { 
+                    pdf.addPage();
+                y = 15; 
+                }
+            });
+    
+                pdf.save("reporte_ventas_por_día.pdf");  
+            })
+
+            } catch (error) {
+            console.error('Error al generar el reporte con imagen:', error);
+            }
+        };
+
     // Gráfico 7 ///////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
         fetch('http://localhost:5000/Estadistica/ventasportrimestre')  // Realiza una solicitud GET al servidor para obtener productos
@@ -357,6 +555,39 @@ function Grafico ({Rol}) {
         }
         }, [trimestres]);
 
+    //Reporte 6
+    const generarReporteAlmacenImg6 = async () => {
+        try {
+            const canvas = await html2canvas(document.getElementById('myChart7'));
+            const pdf = new jsPDF();
+            const imgData = canvas.toDataURL('image/png');
+            pdf.text("Reporte de ventas por trimestre", 65, 10);
+            pdf.addImage(imgData, 'PNG', 10, 20, 120, 120);
+
+            fetch('http://localhost:5000/Estadistica/ventasportrimestre') 
+            .then((response) => response.json())  
+            .then((trimestres) => {
+            let y = 150; 
+    
+            trimestres.forEach((tri) => {  
+                pdf.text(`Trimestre: ${tri.Trimestre}`, 20, y);  
+                pdf.text(`Ventas Totales: ${tri.Ventas_totales}`, 20, y + 10);  
+    
+                y += 30; 
+                if (y >= 280) { 
+                    pdf.addPage();
+                y = 15; 
+                }
+            });
+    
+                pdf.save("reporte_ventas_por_trimestre.pdf");  
+            })
+
+            } catch (error) {
+            console.error('Error al generar el reporte con imagen:', error);
+            }
+        };
+
     // Gráfico 8 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
         fetch('http://localhost:5000/Estadistica/ventaspromedio')  // Realiza una solicitud GET al servidor para obtener productos
@@ -400,6 +631,39 @@ function Grafico ({Rol}) {
             setMyChart8(grafico8); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
         }
         }, [productos1]);
+
+            //Reporte 
+            const generarReporteAlmacenImg9 = async () => {
+                try {
+                    const canvas = await html2canvas(document.getElementById('myChart8'));
+                    const pdf = new jsPDF();
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.text("Reporte de ventas totales por producto", 60, 10);
+                    pdf.addImage(imgData, 'PNG', 46, 20, 120, 120);
+        
+                    fetch('http://localhost:5000/Estadistica/ventaspromedio') 
+                    .then((response) => response.json())  
+                    .then((productos1) => {
+                    let y = 150; 
+            
+                    productos1.forEach((prod) => {  
+                        pdf.text(`Nombre del Producto: ${prod.NomProducto}`, 20, y);  
+                        pdf.text(`Ventas Totales: ${prod.Promedio_Ventas}`, 20, y + 10);  
+            
+                        y += 30; 
+                        if (y >= 280) { 
+                            pdf.addPage();
+                        y = 15; 
+                        }
+                    });
+            
+                        pdf.save("reporte_ventas_por_productos.pdf");  
+                    })
+        
+                    } catch (error) {
+                    console.error('Error al generar el reporte con imagen:', error);
+                    }
+                };
 
     // Gráfico 9 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
@@ -464,6 +728,40 @@ function Grafico ({Rol}) {
         setMyChart9(chart)
         }
     }, [empleados]);
+
+    //Reporte 7
+    const generarReporteAlmacenImg7 = async () => {
+        try {
+            const canvas = await html2canvas(document.getElementById('myEmpleados'));
+            const pdf = new jsPDF();
+            const imgData = canvas.toDataURL('image/png');
+            pdf.text("Reporte de ventas por empleado", 65, 10);
+            pdf.addImage(imgData, 'PNG', 46, 20, 120, 120);
+
+            fetch('http://localhost:5000/Estadistica/ventasporempleado') 
+            .then((response) => response.json())  
+            .then((empleados) => {
+            let y = 150; 
+    
+            empleados.forEach((emp) => {  
+                pdf.text(`Nombre del Empleado: ${emp.NombreEmpleado}`, 20, y);  
+                pdf.text(`Ventas Totales: ${emp.VentasTotales}`, 20, y + 10);  
+    
+                y += 30; 
+                if (y >= 280) { 
+                    pdf.addPage();
+                y = 15; 
+                }
+            });
+    
+                pdf.save("reporte_ventas_por_empleado.pdf");  
+            })
+
+            } catch (error) {
+            console.error('Error al generar el reporte con imagen:', error);
+            }
+        };
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
     return(
         <div>
@@ -479,6 +777,11 @@ function Grafico ({Rol}) {
                     <Card.Title className='title'>Top 5 de productos más vendidos</Card.Title>
                     <canvas id="myChart"  height="120"></canvas>
                 </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg}>
+                    Generar PDF
+                    </Button>
+                </Card.Body>
                     </Card>
                 </Col> 
 
@@ -487,6 +790,11 @@ function Grafico ({Rol}) {
                 <Card.Body>
                     <Card.Title className='title'>Ventas totales por procedencias</Card.Title>
                     <canvas id="myChart2"  height="120"></canvas>
+                </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg1}>
+                    Generar PDF
+                    </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -497,13 +805,24 @@ function Grafico ({Rol}) {
                     <Card.Title className='title'>Ventas totales por categoría</Card.Title>
                     <canvas id="myCategories"  height="120"></canvas>
                 </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg2}>
+                    Generar PDF
+                    </Button>
+                </Card.Body>
                     </Card>
+
                 </Col> 
                 <Col sm="6" md="6" lg="6">
                 <Card>
                 <Card.Body>
                     <Card.Title className='title'>Ventas totales por empleado</Card.Title>
                     <canvas id="myEmpleados"  height="120"></canvas>
+                </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg7}>
+                    Generar PDF
+                    </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -514,6 +833,11 @@ function Grafico ({Rol}) {
                     <Card.Title className='title'>Ventas totales por año</Card.Title>
                     <canvas id="myChart4"  height="120"></canvas>
                 </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg3}>
+                    Generar PDF
+                    </Button>
+                </Card.Body>
                     </Card>
                 </Col> 
 
@@ -522,6 +846,11 @@ function Grafico ({Rol}) {
                 <Card.Body>
                     <Card.Title className='title'>Ventas totales por mes</Card.Title>
                     <canvas id="myChart5"  height="120"></canvas>
+                </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg4}>
+                    Generar PDF
+                    </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -532,6 +861,11 @@ function Grafico ({Rol}) {
                     <Card.Title className='title'>Ventas totales por día de un mes y año específicos</Card.Title>
                     <canvas id="myChart6"  height="120"></canvas>
                 </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg5}>
+                    Generar PDF
+                    </Button>
+                </Card.Body>
                     </Card>
                 </Col> 
 
@@ -541,6 +875,11 @@ function Grafico ({Rol}) {
                     <Card.Title className='title'>Ventas totales por trimestre</Card.Title>
                     <canvas id="myChart7"  height="120"></canvas>
                 </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg6}>
+                    Generar PDF
+                    </Button>
+                </Card.Body>
                     </Card>
                 </Col> 
 
@@ -549,6 +888,11 @@ function Grafico ({Rol}) {
                 <Card.Body>
                     <Card.Title className='title'>Ventas totales por producto</Card.Title>
                     <canvas id="myChart8"  height="120"></canvas>
+                </Card.Body>
+                <Card.Body>
+                    <Button onClick={generarReporteAlmacenImg9}>
+                    Generar PDF
+                    </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
