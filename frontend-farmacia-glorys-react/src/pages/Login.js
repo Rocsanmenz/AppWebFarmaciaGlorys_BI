@@ -49,7 +49,7 @@ const Login = ({ setRol }) => {
             <Card>
                 <Card.Body>
                 <div class="h2">
-                <Card.Title className="mb-3">Incio de Sesión</Card.Title>
+                <Card.Title className="mb-3">Inicio de Sesión</Card.Title>
                 </div>
                 <div class="form-box">
                 <Form onSubmit={handleSubmit}>
