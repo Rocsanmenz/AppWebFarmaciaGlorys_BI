@@ -79,8 +79,8 @@ function Grafico ({Rol}) {
             const canvas = await html2canvas(document.getElementById('myChart'));
             const pdf = new jsPDF();
             const imgData = canvas.toDataURL('image/png');
-            pdf.text("Reporte de cantidad total vendida por producto", 60, 10);
-            pdf.addImage(imgData, 'PNG', 30, 20, 160, 120);
+            pdf.text("Reporte de Cantidad Total Vendida Por Producto", 60, 10);
+            pdf.addImage(imgData, 'PNG', 46, 20, 120, 120);
 
             fetch('http://localhost:5000/Estadistica/mostrar1') 
             .then((response) => response.json())  
@@ -89,7 +89,7 @@ function Grafico ({Rol}) {
     
             productos.forEach((pro) => {  
                 pdf.text(`Nombre del Producto: ${pro.NomProducto}`, 20, y);  
-                pdf.text(`Cantiddad Vendida: ${pro.Cantidad_Total_Vendida}`, 20, y + 10);  
+                pdf.text(`Cantidad Vendida: ${pro.Cantidad_Total_Vendida}`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -156,7 +156,7 @@ function Grafico ({Rol}) {
                     const canvas = await html2canvas(document.getElementById('myChart2'));
                     const pdf = new jsPDF();
                     const imgData = canvas.toDataURL('image/png');
-                    pdf.text("Reporte de ventas por procedencia", 65, 10);
+                    pdf.text("Reporte de Ventas Por Procedencia", 65, 10);
                     pdf.addImage(imgData, 'PNG', 30, 20, 140, 120);
 
                     fetch('http://localhost:5000/Estadistica/ventasporprocedencia') 
@@ -238,7 +238,7 @@ function Grafico ({Rol}) {
             },
             title: {
                 display: true,
-                text: 'Ventas totales por categoría'
+                text: 'Ventas Totales por Categoría'
                 }
             }
             }
@@ -253,7 +253,7 @@ function Grafico ({Rol}) {
             const canvas = await html2canvas(document.getElementById('myCategories'));
             const pdf = new jsPDF();
             const imgData = canvas.toDataURL('image/png');
-            pdf.text("Reporte de ventas por categoría", 65, 10);
+            pdf.text("Reporte de Ventas por Categoría", 65, 10);
             pdf.addImage(imgData, 'PNG', 46, 20, 120, 120);
 
             fetch('http://localhost:5000/Estadistica/ventasporcategoria') 
@@ -382,7 +382,7 @@ function Grafico ({Rol}) {
                 data: {
                 labels: meses,  // Asigna los nombres de productos como etiquetas para el eje X
                 datasets: [{
-                  label: 'Total de ventas por mes',  // Etiqueta para la leyenda del gráfico
+                  label: 'Total de ventas por Mes',  // Etiqueta para la leyenda del gráfico
                   data: Ventastotales,  // Asigna las cantidades de productos para la visualización
                   backgroundColor: 'rgba(18, 168, 214, 0.843)',  // Define el color de fondo de las barras
                   borderColor: 'rgba(18, 168, 214, 0.843)',  // Define el color del borde de las barras
@@ -774,7 +774,7 @@ function Grafico ({Rol}) {
             <Col sm="12" md="6" lg="12">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Top 5 de productos más vendidos</Card.Title>
+                    <Card.Title className='title'>Top 5 de Productos Más Vendidos</Card.Title>
                     <canvas id="myChart"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -788,7 +788,7 @@ function Grafico ({Rol}) {
                 <Col sm="12" md="6" lg="12">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por procedencias</Card.Title>
+                    <Card.Title className='title'>Ventas Totales por Procedencias</Card.Title>
                     <canvas id="myChart2"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -802,7 +802,7 @@ function Grafico ({Rol}) {
                 <Col sm="6" md="6" lg="6">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por categoría</Card.Title>
+                    <Card.Title className='title'>Ventas Totales Por Categoría</Card.Title>
                     <canvas id="myCategories"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -816,7 +816,7 @@ function Grafico ({Rol}) {
                 <Col sm="6" md="6" lg="6"Co>
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por empleado</Card.Title>
+                    <Card.Title className='title'>Ventas Totales Por Empleado</Card.Title>
                     <canvas id="myEmpleados"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -830,7 +830,7 @@ function Grafico ({Rol}) {
                 <Col sm="12" md="6" lg="12">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por año</Card.Title>
+                    <Card.Title className='title'>Ventas Totales por Año</Card.Title>
                     <canvas id="myChart4"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -844,7 +844,7 @@ function Grafico ({Rol}) {
                 <Col sm="12" md="6" lg="12">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por mes</Card.Title>
+                    <Card.Title className='title'>Ventas Totales por Mes</Card.Title>
                     <canvas id="myChart5"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -858,7 +858,7 @@ function Grafico ({Rol}) {
                 <Col sm="12" md="6" lg="12">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por día de un mes y año específicos</Card.Title>
+                    <Card.Title className='title'>Ventas Totales Por Día de Un Mes y Año Específicos</Card.Title>
                     <canvas id="myChart6"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -871,7 +871,7 @@ function Grafico ({Rol}) {
 
                 <Col sm="12" md="6" lg="12">                <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por trimestre</Card.Title>
+                    <Card.Title className='title'>Ventas Totales por Trimestre</Card.Title>
                     <canvas id="myChart7"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
@@ -884,7 +884,7 @@ function Grafico ({Rol}) {
 
                 <Col sm="12" md="6" lg="12">                <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas totales por producto</Card.Title>
+                    <Card.Title className='title'>Ventas Totales Por Producto</Card.Title>
                     <canvas id="myChart8"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
