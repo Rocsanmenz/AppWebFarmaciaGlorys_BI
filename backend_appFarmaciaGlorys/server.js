@@ -20,8 +20,8 @@ app.use(express.json());
 // Configuración de la conexión a la primera base de datos
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'dev1',
-    password: 'dev1pass',
+    user: 'root',
+    password: '0492',
     database: 'farmaciaglorys'
 });
 
@@ -36,8 +36,8 @@ db.connect((err) => {
 // Configuración de la conexión a la segunda base de datos
 const db2 = mysql.createConnection({
     host: 'localhost',
-    user: 'dev1',
-    password: 'dev1pass',
+    user: 'root',
+    password: '0492',
     database: 'farmaciaglorys_dm'
 });
 
