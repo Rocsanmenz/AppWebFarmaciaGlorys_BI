@@ -844,7 +844,7 @@ function Grafico ({Rol}) {
                 <Col sm="12" md="6" lg="12">
                 <Card>
                 <Card.Body>
-                    <Card.Title className='title'>Ventas Totales por Mes</Card.Title>
+                    <Card.Title className='title'>Ventas Totales por mes en el año 2024</Card.Title>
                     <canvas id="myChart5"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
