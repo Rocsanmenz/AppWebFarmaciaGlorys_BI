@@ -21,7 +21,7 @@ function Dashboard({ Rol }) {  // Declaración del componente Estadisticas con e
                 <Card.Body>
                     <Card.Title>Dashboard</Card.Title>
 
-                    <iframe title="BorrradorDashboards" width="1100" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiM2M1OWZkMWYtYzViMS00ZGI0LTgxNzMtNDJiYmU3ZmRhMjVhIiwidCI6ImU0NzY0NmZlLWRhMjctNDUxOC04NDM2LTVmOGIxNThiYTEyNyIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
+                    <iframe title="DASHBOARD_FG" width="1100" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiMmYzNzQxYmMtYTMwMS00NDM3LTlmOGQtNDk4ZmU3NjgxYjIyIiwidCI6ImU0NzY0NmZlLWRhMjctNDUxOC04NDM2LTVmOGIxNThiYTEyNyIsImMiOjR9" frameborder="0" allowFullScreen="true"></iframe>
 
                         <Button onClick={imprimirGraficos}>
                         Generar reporte con imagen.

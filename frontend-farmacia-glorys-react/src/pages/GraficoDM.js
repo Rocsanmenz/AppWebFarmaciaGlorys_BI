@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import Chart from 'chart.js/auto';  
 import '../styles/App.css';  
 import html2canvas from 'html2canvas';
+import emailjs from 'emailjs-com'; //Importación de emailjs para los reportes 
 
 function Grafico ({Rol}) {
 
@@ -73,6 +74,37 @@ function Grafico ({Rol}) {
         }
         }, [productos]);
 
+        //Formatear los valores para enviar reporte por correo
+        const formatearProductosVendidos = (productos) => {
+            return productos.map(producto => {
+                return `Nombre de Producto: ${producto.NomProducto}\nCantidad vendida: ${producto.Cantidad_Total_Vendida}`;
+                }).join('\n\n');
+            };
+
+        //Método para realizar envío correspondiente
+        const enviarCorreo = () => {
+            // Formateo de datos
+            const productosFormateados = formatearProductosVendidos(productos);
+        
+            // Datos de ejemplo (reemplaza con tus datos reales)
+                const data = {
+                to_name: 'Farmacia Glorys',
+                user_email: 'samsamtech0524@gmail.com',
+                message: productosFormateados,
+                };
+            
+                // Envía el correo utilizando EmailJS
+                emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+                .then((response) => {
+                    alert('Correo enviado.');
+                    console.log('Correo enviado.', response);
+                })
+                .catch((error) => {
+                    alert('Error al enviar el correo.');
+                    console.error('Error al enviar el correo:', error);
+                });
+            };
+
         //Reporte 
     const generarReporteAlmacenImg = async () => {
         try {
@@ -89,7 +121,7 @@ function Grafico ({Rol}) {
     
             productos.forEach((pro) => {  
                 pdf.text(`Nombre del Producto: ${pro.NomProducto}`, 20, y);  
-                pdf.text(`Cantidad Vendida: ${pro.Cantidad_Total_Vendida}`, 20, y + 10);  
+                pdf.text(`Cantidad Vendida: ${pro.Cantidad_Total_Vendida} Transacciones`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -150,6 +182,37 @@ function Grafico ({Rol}) {
             }
             }, [clientes]);
 
+             //Formatear los valores para enviar reporte por correo
+        const formatearVentasProcedencias = (clientes) => {
+            return clientes.map(cliente => {
+                return `Procedencia: ${cliente.Procedencia}\nTotal de ventas: ${cliente.TotalVentas} C$`;
+                }).join('\n\n');
+            };
+
+        //Método para realizar envío correspondiente
+        const enviarCorreo2 = () => {
+            // Formateo de datos
+            const ProcedenciasFormateadas = formatearVentasProcedencias(clientes);
+        
+            // Datos de ejemplo (reemplaza con tus datos reales)
+                const data = {
+                to_name: 'Farmacia Glorys',
+                user_email: 'samsamtech0524@gmail.com',
+                message: ProcedenciasFormateadas,
+                };
+            
+                // Envía el correo utilizando EmailJS
+                emailjs.send('service_akr1vox', 'template_qxzs1z1', data, 'wBzzI1iiI3cvSFG_b')
+                .then((response) => {
+                    alert('Correo enviado.');
+                    console.log('Correo enviado.', response);
+                })
+                .catch((error) => {
+                    alert('Error al enviar el correo.');
+                    console.error('Error al enviar el correo:', error);
+                });
+            };
+
             //Reporte 1
             const generarReporteAlmacenImg1 = async () => {
                 try {
@@ -166,7 +229,7 @@ function Grafico ({Rol}) {
             
                     clientes.forEach((cliente) => {  
                         pdf.text(`Procedencia: ${cliente.Procedencia}`, 20, y);  
-                        pdf.text(`Ventas Totales: ${cliente.TotalVentas}`, 20, y + 10);  
+                        pdf.text(`Ventas Totales: C$ ${cliente.TotalVentas}`, 20, y + 10);  
             
                         y += 30; 
                         if (y >= 280) { 
@@ -263,7 +326,7 @@ function Grafico ({Rol}) {
     
             categorias.forEach((cate) => {  
                 pdf.text(`Categoría: ${cate.NombreCategoria}`, 20, y);  
-                pdf.text(`Ventas Totales: ${cate.Ventas_Totales}`, 20, y + 10);  
+                pdf.text(`Ventas Totales: C$ ${cate.Ventas_Totales}`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -340,7 +403,7 @@ function Grafico ({Rol}) {
         
                 fechas.forEach((fecha) => {  
                     pdf.text(`Año: ${fecha.Anyo}`, 20, y);  
-                    pdf.text(`Ventas Totales: ${fecha.Ventas_totales}`, 20, y + 10);  
+                    pdf.text(`Ventas Totales: C$ ${fecha.Ventas_totales}`, 20, y + 10);  
         
                     y += 30; 
                     if (y >= 280) { 
@@ -417,7 +480,7 @@ function Grafico ({Rol}) {
     
             tiempos.forEach((tiem) => {  
                 pdf.text(`Mes: ${tiem.Mes}`, 20, y);  
-                pdf.text(`Ventas Totales: ${tiem.Ventas_totales}`, 20, y + 10);  
+                pdf.text(`Ventas Totales: C$ ${tiem.Ventas_totales}`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -494,7 +557,7 @@ function Grafico ({Rol}) {
     
             dias.forEach((di) => {  
                 pdf.text(`Día: ${di.Dia}`, 20, y);  
-                pdf.text(`Ventas Totales: ${di.Ventas_totales}`, 20, y + 10);  
+                pdf.text(`Ventas Totales: C$ ${di.Ventas_totales}`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -571,7 +634,7 @@ function Grafico ({Rol}) {
     
             trimestres.forEach((tri) => {  
                 pdf.text(`Trimestre: ${tri.Trimestre}`, 20, y);  
-                pdf.text(`Ventas Totales: ${tri.Ventas_totales}`, 20, y + 10);  
+                pdf.text(`Ventas Totales: C$ ${tri.Ventas_totales}`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -632,6 +695,37 @@ function Grafico ({Rol}) {
         }
         }, [productos1]);
 
+         //Formatear los valores para enviar reporte por correo
+            const formatearTotalVentasPro = (productos1) => {
+            return productos1.map(producto1 => {
+                return `Nombre del Producto: ${producto1.NomProducto}\nTotal de ventas: ${producto1.Promedio_Ventas} C$`;
+                }).join('\n\n');
+            };
+
+        //Método para realizar envío correspondiente
+        const enviarCorreo9 = () => {
+            // Formateo de datos
+            const VentasProductosFormateadas = formatearTotalVentasPro(productos1);
+        
+            // Datos de ejemplo (reemplaza con tus datos reales)
+                const data = {
+                to_name: 'Farmacia Glorys',
+                user_email: 'samsamtech0524@gmail.com',
+                message: VentasProductosFormateadas,
+                };
+            
+                // Envía el correo utilizando EmailJS
+                emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+                .then((response) => {
+                    alert('Correo enviado.');
+                    console.log('Correo enviado.', response);
+                })
+                .catch((error) => {
+                    alert('Error al enviar el correo.');
+                    console.error('Error al enviar el correo:', error);
+                });
+            };
+
             //Reporte 
             const generarReporteAlmacenImg9 = async () => {
                 try {
@@ -648,7 +742,7 @@ function Grafico ({Rol}) {
             
                     productos1.forEach((prod) => {  
                         pdf.text(`Nombre del Producto: ${prod.NomProducto}`, 20, y);  
-                        pdf.text(`Ventas Totales: ${prod.Promedio_Ventas}`, 20, y + 10);  
+                        pdf.text(`Ventas Totales: C$ ${prod.Promedio_Ventas}`, 20, y + 10);  
             
                         y += 30; 
                         if (y >= 280) { 
@@ -729,7 +823,7 @@ function Grafico ({Rol}) {
         }
     }, [empleados]);
 
-    //Reporte 7
+    //Reporte 9
     const generarReporteAlmacenImg7 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myEmpleados'));
@@ -745,7 +839,7 @@ function Grafico ({Rol}) {
     
             empleados.forEach((emp) => {  
                 pdf.text(`Nombre del Empleado: ${emp.NombreEmpleado}`, 20, y);  
-                pdf.text(`Ventas Totales: ${emp.VentasTotales}`, 20, y + 10);  
+                pdf.text(`Ventas Totales: C$ ${emp.VentasTotales}`, 20, y + 10);  
     
                 y += 30; 
                 if (y >= 280) { 
@@ -781,6 +875,9 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo}>
+                    Enviar por Correo
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -795,6 +892,9 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg1}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo2}>
+                    Enviar por Correo
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -891,6 +991,9 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg9}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo9}>
+                    Enviar por Correo
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
