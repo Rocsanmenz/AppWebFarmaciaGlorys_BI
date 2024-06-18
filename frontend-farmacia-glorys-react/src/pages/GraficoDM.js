@@ -310,6 +310,37 @@ function Grafico ({Rol}) {
         }
     }, [categorias]);
 
+
+     //Formatear los valores para enviar reporte por correo
+     const formatearVentasCategoria= (categorias) => {
+        return categorias.map(categorias => {
+            return `Categorias: ${categorias.NombreCategoria}\nVentas Totales: ${categorias.Ventas_Totales}`;
+            }).join('\n\n');
+        };
+
+    //Método para realizar envío Farmacia Glorys
+    const enviarCorreo3 = () => {
+        // Formateo de datos
+        const FormatoCategorias = formatearVentasCategoria(categorias);
+    
+        // Datos de ejemplo (reemplaza con tus datos reales)
+            const data = {
+            to_name: 'Farmacia Glorys',
+            user_email: 'samsamtech0524@gmail.com',
+            message: FormatoCategorias,
+            };
+        
+            // Envía el correo utilizando EmailJS
+            emailjs.send('service_s1m6tsu', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            .then((response) => {
+                alert('Correo enviado.');
+                console.log('Correo enviado.', response);
+            })
+            .catch((error) => {
+                alert('Error al enviar el correo.');
+                console.error('Error al enviar el correo:', error);
+            });
+        };
     //Reporte 2
     const generarReporteAlmacenImg2 = async () => {
         try {
@@ -387,6 +418,37 @@ function Grafico ({Rol}) {
         }
         }, [fechas]);
         
+         //Formatear los valores para enviar reporte por correo
+     const formatearVentasAnio= (fechas) => {
+        return fechas.map(fechas => {
+            return `Ventas por año: ${fechas.Anyo}\nVentas Totales por Año: ${fechas.Ventas_Totales}`;
+            }).join('\n\n');
+        };
+
+    //Método para realizar envío Farmacia Glorys
+    const enviarCorreo4 = () => {
+        // Formateo de datos
+        const FormatoAnio = formatearVentasAnio(categorias);
+    
+        // Datos de ejemplo (reemplaza con tus datos reales)
+            const data = {
+            to_name: 'Farmacia Glorys',
+            user_email: 'samsamtech0524@gmail.com',
+            message: FormatoAnio,
+            };
+        
+            // Envía el correo utilizando EmailJS
+            emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            .then((response) => {
+                alert('Correo enviado.');
+                console.log('Correo enviado.', response);
+            })
+            .catch((error) => {
+                alert('Error al enviar el correo.');
+                console.error('Error al enviar el correo:', error);
+            });
+        };
+
         //Reporte 3
         const generarReporteAlmacenImg3 = async () => {
             try {
@@ -463,6 +525,37 @@ function Grafico ({Rol}) {
             setMyChart5(grafico5); // Guarda la referencia al nuevo gráfico en el estado 'myChart'
         }
         }, [tiempos]);
+
+         //Formatear los valores para enviar reporte por correo
+     const formatearVentasMes= (tiempos) => {
+        return tiempos.map(tiempos => {
+            return `Ventas por Mes: ${tiempos.Mes}\nVentas Totales: ${categorias.Ventas_Totales}`;
+            }).join('\n\n');
+        };
+
+    //Método para realizar envío Farmacia Glorys
+    const enviarCorreo5 = () => {
+        // Formateo de datos
+        const FormatoVentasM = formatearVentasMes(categorias);
+    
+        // Datos de ejemplo (reemplaza con tus datos reales)
+            const data = {
+            to_name: 'Farmacia Glorys',
+            user_email: 'samsamtech0524@gmail.com',
+            message: FormatoVentasM,
+            };
+        
+            // Envía el correo utilizando EmailJS
+            emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            .then((response) => {
+                alert('Correo enviado.');
+                console.log('Correo enviado.', response);
+            })
+            .catch((error) => {
+                alert('Error al enviar el correo.');
+                console.error('Error al enviar el correo:', error);
+            });
+        };
 
     //Reporte 4
     const generarReporteAlmacenImg4 = async () => {
@@ -909,6 +1002,9 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg2}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo3}>
+                    Enviar por Correo
+                </Button>
                 </Card.Body>
                     </Card>
 
@@ -937,6 +1033,7 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg3}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo4}>Enviar por Correo</Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -951,6 +1048,7 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg4}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo4}>Enviar Por Correo</Button>
                 </Card.Body>
                     </Card>
                 </Col> 
