@@ -313,8 +313,8 @@ function Grafico ({Rol}) {
 
      //Formatear los valores para enviar reporte por correo
      const formatearVentasCategoria= (categorias) => {
-        return categorias.map(categorias => {
-            return `Categorias: ${categorias.NombreCategoria}\nVentas Totales: ${categorias.Ventas_Totales}`;
+        return categorias.map(categoria => {
+            return `Categorias: ${categoria.NombreCategoria}\nVentas Totales: ${categoria.Ventas_Totales}`;
             }).join('\n\n');
         };
 
@@ -330,8 +330,8 @@ function Grafico ({Rol}) {
             message: FormatoCategorias,
             };
         
-            // Envía el correo utilizando EmailJS
-            emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            emailjs.send('service_uuck0c2', 'template_8y7jjtt', data, '8QYwqSteOsPWv-SgS')
+
             .then((response) => {
                 alert('Correo enviado.');
                 console.log('Correo enviado.', response);
@@ -420,15 +420,15 @@ function Grafico ({Rol}) {
         
          //Formatear los valores para enviar reporte por correo
      const formatearVentasAnio= (fechas) => {
-        return fechas.map(fechas => {
-            return `Ventas por año: ${fechas.Anyo}\nVentas Totales por Año: ${fechas.Ventas_Totales}`;
+        return fechas.map(fecha => {
+            return `Ventas por año: ${fecha.Anyo}\nVentas Totales por Año: ${fecha.Ventas_totales}`;
             }).join('\n\n');
         };
 
     //Método para realizar envío Farmacia Glorys
     const enviarCorreo4 = () => {
         // Formateo de datos
-        const FormatoAnio = formatearVentasAnio(categorias);
+        const FormatoAnio = formatearVentasAnio(fechas);
     
         // Datos de ejemplo (reemplaza con tus datos reales)
             const data = {
@@ -438,7 +438,7 @@ function Grafico ({Rol}) {
             };
         
             // Envía el correo utilizando EmailJS
-            emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            emailjs.send('service_uuck0c2', 'template_8y7jjtt', data, '8QYwqSteOsPWv-SgS')
             .then((response) => {
                 alert('Correo enviado.');
                 console.log('Correo enviado.', response);
@@ -528,15 +528,15 @@ function Grafico ({Rol}) {
 
          //Formatear los valores para enviar reporte por correo
      const formatearVentasMes= (tiempos) => {
-        return tiempos.map(tiempos => {
-            return `Ventas por Mes: ${tiempos.Mes}\nVentas Totales: ${categorias.Ventas_Totales}`;
+        return tiempos.map(tiempo => {
+            return `Ventas por Mes: ${tiempo.Mes}\nVentas Totales: ${tiempo.Ventas_totales}`;
             }).join('\n\n');
         };
 
     //Método para realizar envío Farmacia Glorys
     const enviarCorreo5 = () => {
         // Formateo de datos
-        const FormatoVentasM = formatearVentasMes(categorias);
+        const FormatoVentasM = formatearVentasMes(tiempos);
     
         // Datos de ejemplo (reemplaza con tus datos reales)
             const data = {
@@ -546,7 +546,7 @@ function Grafico ({Rol}) {
             };
         
             // Envía el correo utilizando EmailJS
-            emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            emailjs.send('service_uuck0c2', 'template_8y7jjtt', data, '8QYwqSteOsPWv-SgS')
             .then((response) => {
                 alert('Correo enviado.');
                 console.log('Correo enviado.', response);
@@ -1142,7 +1142,7 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg4}>
                     Generar PDF
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo4}>Enviar Por Correo</Button>
+                    <Button variant="secondary" onClick={enviarCorreo5}>Enviar Por Correo</Button>
                 </Card.Body>
                     </Card>
                 </Col> 
