@@ -331,7 +331,7 @@ function Grafico ({Rol}) {
             };
         
             // Envía el correo utilizando EmailJS
-            emailjs.send('service_s1m6tsu', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
+            emailjs.send('service_akr1vox', 'template_ca0793j', data, 'wBzzI1iiI3cvSFG_b')
             .then((response) => {
                 alert('Correo enviado.');
                 console.log('Correo enviado.', response);
@@ -635,6 +635,36 @@ function Grafico ({Rol}) {
         }, [dias]);
 
      //Reporte 5
+     const formatearD= (dias) => {
+        return dias.map(dias => {
+            return `Dia: ${dias.Dia}\nVentas Totales: ${dias.Ventas_totales}`;
+            }).join('\n\n');
+        };
+
+    //Método para realizar envío Farmacia Glorys
+    const enviarCorreo7 = () => {
+        // Formateo de datos
+        const formatearDI = formatearD(dias);
+    
+        // Datos de ejemplo (reemplaza con tus datos reales)
+            const data = {
+            to_name: 'Farmacia Glorys',
+            user_email: 'samsamtech0524@gmail.com',
+            message: formatearDI,
+            };
+        
+            // Envía el correo utilizando EmailJS
+            emailjs.send('service_sdflu8a', 'template_lzy6aob', data, 'BBCEAQ0beiznOh4vs')
+            .then((response) => {
+                alert('Correo enviado.');
+                console.log('Correo enviado.', response);
+            })
+            .catch((error) => {
+                alert('Error al enviar el correo.');
+                console.error('Error al enviar el correo:', error);
+            });
+        };
+     
         const generarReporteAlmacenImg5 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myChart6'));
@@ -712,6 +742,36 @@ function Grafico ({Rol}) {
         }, [trimestres]);
 
     //Reporte 6
+    const formatearT= (trimestres) => {
+        return trimestres.map(trimestres => {
+            return `Trimestre: ${trimestres.Trimestre}\nVentas Totales: ${trimestres.Ventas_totales}`;
+            }).join('\n\n');
+        };
+
+    //Método para realizar envío Farmacia Glorys
+    const enviarCorreo8 = () => {
+        // Formateo de datos
+        const formatearTr = formatearT(trimestres);
+    
+        // Datos de ejemplo (reemplaza con tus datos reales)
+            const data = {
+            to_name: 'Farmacia Glorys',
+            user_email: 'samsamtech0524@gmail.com',
+            message: formatearTr,
+            };
+        
+            // Envía el correo utilizando EmailJS
+            emailjs.send('service_sdflu8a', 'template_lzy6aob', data, 'BBCEAQ0beiznOh4vs')
+            .then((response) => {
+                alert('Correo enviado.');
+                console.log('Correo enviado.', response);
+            })
+            .catch((error) => {
+                alert('Error al enviar el correo.');
+                console.error('Error al enviar el correo:', error);
+            });
+        };
+
     const generarReporteAlmacenImg6 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myChart7'));
@@ -917,6 +977,39 @@ function Grafico ({Rol}) {
     }, [empleados]);
 
     //Reporte 9
+
+    const formatearE= (empleados) => {
+        return empleados.map(empleados => {
+            return `Nombre de empleado: ${empleados.NombreEmpleado}\nVentas Totales: ${empleados.VentasTotales}`;
+            }).join('\n\n');
+        };
+
+    //Método para realizar envío Farmacia Glorys
+    const enviarCorreo6 = () => {
+        // Formateo de datos
+        const formatearV = formatearE(empleados);
+    
+        // Datos de ejemplo (reemplaza con tus datos reales)
+            const data = {
+            to_name: 'Farmacia Glorys',
+            user_email: 'samsamtech0524@gmail.com',
+            message: formatearV,
+            };
+        
+            // Envía el correo utilizando EmailJS
+            emailjs.send('service_sdflu8a', 'template_lzy6aob', data, 'BBCEAQ0beiznOh4vs')
+            .then((response) => {
+                alert('Correo enviado.');
+                console.log('Correo enviado.', response);
+            })
+            .catch((error) => {
+                alert('Error al enviar el correo.');
+                console.error('Error al enviar el correo:', error);
+            });
+        };
+
+
+
     const generarReporteAlmacenImg7 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myEmpleados'));
@@ -1019,6 +1112,7 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg7}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo6}>Enviar por Correo</Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1063,6 +1157,7 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg5}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo7}>Enviar Por Correo</Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1076,6 +1171,7 @@ function Grafico ({Rol}) {
                     <Button onClick={generarReporteAlmacenImg6}>
                     Generar PDF
                     </Button>
+                    <Button variant="secondary" onClick={enviarCorreo8}>Enviar Por Correo</Button>
                 </Card.Body>
                     </Card>
                 </Col> 
