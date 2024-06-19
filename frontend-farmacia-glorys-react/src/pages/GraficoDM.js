@@ -6,6 +6,8 @@ import Chart from 'chart.js/auto';
 import '../styles/App.css';  
 import html2canvas from 'html2canvas';
 import emailjs from 'emailjs-com'; //Importación de emailjs para los reportes 
+import * as XLSX from 'xlsx'; //Importanción de xlsx para reportes de excel
+import { FaFileExcel  } from 'react-icons/fa6'; //Importación de ícono
 
 function Grafico ({Rol}) {
 
@@ -104,6 +106,17 @@ function Grafico ({Rol}) {
                     console.error('Error al enviar el correo:', error);
                 });
             };
+
+            //Función que permite guardar los datos de las estadísticas en un archivo excel
+            const exportarAExcel = () => {
+                // Convertir los datos JSON a una hoja de trabajo de Excel
+                const worksheet = XLSX.utils.json_to_sheet(productos);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Productos');
+            
+                // Generar y descargar el archivo Excel
+                XLSX.writeFile(workbook, 'productos.xlsx');
+                };
 
         //Reporte 
     const generarReporteAlmacenImg = async () => {
@@ -1063,6 +1076,9 @@ function Grafico ({Rol}) {
                     </Button>
                     <Button variant="secondary" onClick={enviarCorreo}>
                     Enviar por Correo
+                </Button>
+                <Button variant="success" onClick={exportarAExcel} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
                 </Button>
                 </Card.Body>
                     </Card>
