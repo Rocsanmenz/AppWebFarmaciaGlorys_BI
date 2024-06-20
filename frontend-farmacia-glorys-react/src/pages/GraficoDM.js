@@ -8,6 +8,8 @@ import html2canvas from 'html2canvas';
 import emailjs from 'emailjs-com'; //Importación de emailjs para los reportes 
 import * as XLSX from 'xlsx'; //Importanción de xlsx para reportes de excel
 import { FaFileExcel  } from 'react-icons/fa6'; //Importación de ícono
+import { AiFillFilePpt } from "react-icons/ai";
+import { BiLogoGmail } from "react-icons/bi";
 
 function Grafico ({Rol}) {
 
@@ -226,7 +228,18 @@ function Grafico ({Rol}) {
                 });
             };
 
-            //Reporte 1
+                        //Función que permite guardar los datos de las estadísticas en un archivo excel
+                        const exportarAExcel2 = () => {
+                            // Convertir los datos JSON a una hoja de trabajo de Excel
+                            const worksheet = XLSX.utils.json_to_sheet(clientes);
+                            const workbook = XLSX.utils.book_new();
+                            XLSX.utils.book_append_sheet(workbook, worksheet, 'Procedencias');
+                        
+                            // Generar y descargar el archivo Excel
+                            XLSX.writeFile(workbook, 'ventasprocedencias.xlsx');
+                            };
+
+            //Reporte 2
             const generarReporteAlmacenImg1 = async () => {
                 try {
                     const canvas = await html2canvas(document.getElementById('myChart2'));
@@ -325,7 +338,7 @@ function Grafico ({Rol}) {
 
 
      //Formatear los valores para enviar reporte por correo
-     const formatearVentasCategoria= (categorias) => {
+        const formatearVentasCategoria= (categorias) => {
         return categorias.map(categoria => {
             return `Categorias: ${categoria.NombreCategoria}\nVentas Totales: ${categoria.Ventas_Totales}`;
             }).join('\n\n');
@@ -354,7 +367,19 @@ function Grafico ({Rol}) {
                 console.error('Error al enviar el correo:', error);
             });
         };
-    //Reporte 2
+
+              //Función que permite guardar los datos de las estadísticas en un archivo excel
+                const exportarAExcel3 = () => {
+             // Convertir los datos JSON a una hoja de trabajo de Excel
+                const worksheet = XLSX.utils.json_to_sheet(categorias);
+                    const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Categorias');
+                                    
+            // Generar y descargar el archivo Excel
+                XLSX.writeFile(workbook, 'ventascategorias.xlsx');
+            };
+
+    //Reporte 3
     const generarReporteAlmacenImg2 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myCategories'));
@@ -432,7 +457,7 @@ function Grafico ({Rol}) {
         }, [fechas]);
         
          //Formatear los valores para enviar reporte por correo
-     const formatearVentasAnio= (fechas) => {
+        const formatearVentasAnio= (fechas) => {
         return fechas.map(fecha => {
             return `Ventas por año: ${fecha.Anyo}\nVentas Totales por Año: ${fecha.Ventas_totales}`;
             }).join('\n\n');
@@ -462,7 +487,18 @@ function Grafico ({Rol}) {
             });
         };
 
-        //Reporte 3
+    //Función que permite guardar los datos de las estadísticas en un archivo excel
+    const exportarAExcel4 = () => {
+        // Convertir los datos JSON a una hoja de trabajo de Excel
+        const worksheet = XLSX.utils.json_to_sheet(fechas);
+        const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas por año');
+                                        
+        // Generar y descargar el archivo Excel
+            XLSX.writeFile(workbook, 'ventasporaño.xlsx');
+    };
+
+        //Reporte 4
         const generarReporteAlmacenImg3 = async () => {
             try {
                 const canvas = await html2canvas(document.getElementById('myChart4'));
@@ -540,7 +576,7 @@ function Grafico ({Rol}) {
         }, [tiempos]);
 
          //Formatear los valores para enviar reporte por correo
-     const formatearVentasMes= (tiempos) => {
+        const formatearVentasMes= (tiempos) => {
         return tiempos.map(tiempo => {
             return `Ventas por Mes: ${tiempo.Mes}\nVentas Totales: ${tiempo.Ventas_totales}`;
             }).join('\n\n');
@@ -570,7 +606,18 @@ function Grafico ({Rol}) {
             });
         };
 
-    //Reporte 4
+            //Función que permite guardar los datos de las estadísticas en un archivo excel
+    const exportarAExcel5 = () => {
+        // Convertir los datos JSON a una hoja de trabajo de Excel
+        const worksheet = XLSX.utils.json_to_sheet(tiempos);
+        const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Ventas por mes');
+                                        
+        // Generar y descargar el archivo Excel
+            XLSX.writeFile(workbook, 'ventaspormes.xlsx');
+    };
+
+    //Reporte 5
     const generarReporteAlmacenImg4 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myChart5'));
@@ -647,8 +694,8 @@ function Grafico ({Rol}) {
         }
         }, [dias]);
 
-     //Reporte 5
-     const formatearD= (dias) => {
+     //Reporte 6
+        const formatearD= (dias) => {
         return dias.map(dias => {
             return `Dia: ${dias.Dia}\nVentas Totales: ${dias.Ventas_totales}`;
             }).join('\n\n');
@@ -677,7 +724,7 @@ function Grafico ({Rol}) {
                 console.error('Error al enviar el correo:', error);
             });
         };
-     
+    
         const generarReporteAlmacenImg5 = async () => {
         try {
             const canvas = await html2canvas(document.getElementById('myChart6'));
@@ -1071,11 +1118,11 @@ function Grafico ({Rol}) {
                     <canvas id="myChart"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo}>
-                    Enviar por Correo
+                    <Button variant="primary" onClick={enviarCorreo} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
                 </Button>
                 <Button variant="success" onClick={exportarAExcel} className="m-1">
                     <FaFileExcel style={{ color: 'white' }} />
@@ -1091,11 +1138,14 @@ function Grafico ({Rol}) {
                     <canvas id="myChart2"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg1}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg1} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo2}>
-                    Enviar por Correo
+                    <Button variant="primary" onClick={enviarCorreo2} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                </Button>
+                <Button variant="success" onClick={exportarAExcel2} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
                 </Button>
                 </Card.Body>
                     </Card>
@@ -1108,11 +1158,14 @@ function Grafico ({Rol}) {
                     <canvas id="myCategories"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg2}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg2} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo3}>
-                    Enviar por Correo
+                    <Button variant="primary" onClick={enviarCorreo3} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                </Button>
+                <Button variant="success" onClick={exportarAExcel3} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
                 </Button>
                 </Card.Body>
                     </Card>
@@ -1125,10 +1178,12 @@ function Grafico ({Rol}) {
                     <canvas id="myEmpleados"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg7}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg7} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo6}>Enviar por Correo</Button>
+                    <Button variant="primary" onClick={enviarCorreo6} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                        </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1140,10 +1195,15 @@ function Grafico ({Rol}) {
                     <canvas id="myChart4"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg3}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg3} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo4}>Enviar por Correo</Button>
+                    <Button variant="primary" onClick={enviarCorreo4} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                        </Button>
+                        <Button variant="success" onClick={exportarAExcel4} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1155,10 +1215,15 @@ function Grafico ({Rol}) {
                     <canvas id="myChart5"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg4}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg4} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo5}>Enviar Por Correo</Button>
+                    <Button variant="primary" onClick={enviarCorreo5} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                        </Button>
+                        <Button variant="success" onClick={exportarAExcel5} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1170,10 +1235,12 @@ function Grafico ({Rol}) {
                     <canvas id="myChart6"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg5}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg5} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo7}>Enviar Por Correo</Button>
+                    <Button variant="primary" onClick={enviarCorreo7} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                        </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1184,10 +1251,12 @@ function Grafico ({Rol}) {
                     <canvas id="myChart7"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg6}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg6} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo8}>Enviar Por Correo</Button>
+                    <Button variant="primary" onClick={enviarCorreo8} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
+                        </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1198,11 +1267,11 @@ function Grafico ({Rol}) {
                     <canvas id="myChart8"  height="120"></canvas>
                 </Card.Body>
                 <Card.Body>
-                    <Button onClick={generarReporteAlmacenImg9}>
-                    Generar PDF
+                    <Button onClick={generarReporteAlmacenImg9} variant="danger">
+                    <AiFillFilePpt style={{ color: 'white' }}/>
                     </Button>
-                    <Button variant="secondary" onClick={enviarCorreo9}>
-                    Enviar por Correo
+                    <Button variant="primary" onClick={enviarCorreo9} className="m-3">
+                    <BiLogoGmail style={{ color: 'white' }} />
                 </Button>
                 </Card.Body>
                     </Card>
