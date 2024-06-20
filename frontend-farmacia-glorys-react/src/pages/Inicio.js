@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav'; // Importa el componente Nav de Bootstrap
 import Button from 'react-bootstrap/Button'; // Importa el componente Button de Bootstrap
 import Container from 'react-bootstrap/Container'; // Importa el componente Container de Bootstrap
 import { Link } from 'react-router-dom';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import Footer from '../components/Footer';
 import '../styles/App.css';
 import { FaCartPlus} from 'react-icons/fa6';
@@ -159,6 +160,33 @@ const toggleMenu = () => {
             </Button>
             </Container>
         </Navbar>
+
+        <Offcanvas show={showMenu} onHide={toggleMenu} placement="start">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Menú</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="flex-column">
+
+            <Nav.Link>
+            <Link to="/" className="link-unstyled">Inicio</Link>
+                </Nav.Link>
+
+            <Nav.Link>
+            <Link to="/inicio" className="link-unstyled"><FaUser />Iniciar Sesión</Link>
+                </Nav.Link>
+
+                <Nav.Link>
+                <Link to="/registrarse" className="link-unstyled">Registrarse</Link>
+                </Nav.Link>
+
+                  <Nav.Link>
+                <Link to="/compra" className="link-unstyled"><BsCartFill />Carrito</Link>
+                </Nav.Link>
+
+            </Nav>
+          </Offcanvas.Body>
+        </Offcanvas>
 
         <Container className="margen1" responsive>
         <Card.Title className="titulo">Algunos Productos</Card.Title>
