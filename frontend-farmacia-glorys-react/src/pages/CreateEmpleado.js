@@ -37,10 +37,6 @@ function CreateEmpleado() {
       errors.Contraseña = 'Ingrese una contraseña';
     }
 
-    if (!Rol) {
-      errors.Rol = 'Seleccione el rol';
-    }
-
     if (!Correo) {
       errors.Correo = 'Ingrese un correo';
     }
@@ -58,7 +54,7 @@ function CreateEmpleado() {
     const formData = {
       NombreUsuario,
       Contraseña,
-      Rol,
+      Rol: 'Cliente',
       Correo,
       Telefono,
     };
@@ -125,13 +121,6 @@ function CreateEmpleado() {
                             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,8}$"
                             title="Debe contener 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial."
                           />
-                          <Button
-                            variant="link"
-                            className="show-password-button"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-                          </Button>
                         </FloatingLabel>
                         {formErrors.Contraseña && <div className="error-message">{formErrors.Contraseña}</div>}
                       </Col>
@@ -157,21 +146,7 @@ function CreateEmpleado() {
                         </FloatingLabel>
                         {formErrors.Telefono && <div className="error-message">{formErrors.Telefono}</div>}
                       </Col>
-                      <Col sm="12" md="12" lg="12">
-                        <FloatingLabel controlId="Rol" label="Rol">
-                          <Form.Select
-                            aria-label="Rol"
-                            value={Rol}
-                            onChange={(e) => setRol(e.target.value)}
-                          >
-                            <option>Seleccione el rol</option>
-                            <option value="Vendedor">Vendedor</option>
-                            <option value="Contador">Contador</option>
-                          </Form.Select>
-                        </FloatingLabel>
-                        {formErrors.Rol && <div className="error-message">{formErrors.Rol}</div>}
-                      </Col>
-                    </Row>
+                      </Row>
                     <div className="center-button">
                       <Button variant="primary" type="submit" block className="mt-3">
                         Crear Cuenta
