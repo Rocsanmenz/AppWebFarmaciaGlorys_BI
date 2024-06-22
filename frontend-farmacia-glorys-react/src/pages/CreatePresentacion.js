@@ -11,41 +11,39 @@ function CreatePresentacion({Rol}) {
     // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        //Validar campos
-    if (!NombrePresentacion) {
-        alert ('Debe completar los campos');
-        return;
-    }
-
-        // Crear un objeto con los datos del formulario
-        const formData = {
-        NombrePresentacion,
+        
+            if (!NombrePresentacion) {
+            alert('Debe completar los campos');
+            return;
+            }
+        
+            const formData = {
+            NombrePresentacion,
+            };
+        
+            try {
+            const response = await fetch('http://localhost:5000/crud/createPresentacion', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const responseData = await response.json();
+        
+            if (response.ok) {
+                alert('Presentación Registrada');
+                setNombrePresentacion('');
+            } else {
+                // Manejar el caso cuando el servidor responde con un error
+                alert(responseData.error || 'Error al registrar la presentación');
+            }
+            } catch (error) {
+            console.error('Error en la solicitud:', error);
+            alert('Error en la solicitud al servidor');
+            }
         };
-
-        try {
-        // Realizar una solicitud HTTP al backend para enviar los datos
-        const response = await fetch('http://localhost:5000/crud/createPresentacion', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-            // El registro se creó exitosamente
-            alert('Presentación Registrada');
-            // Reiniciar los campos del formulario
-            setNombrePresentacion('');
-        } else {
-            alert('Campo vacío');
-        }
-        } catch (error) {
-        console.error('Error en la solicitud:', error);
-        alert('Error en la solicitud al servidor');
-        }
-    };
 
     return(
         <div className='formulario-1'>

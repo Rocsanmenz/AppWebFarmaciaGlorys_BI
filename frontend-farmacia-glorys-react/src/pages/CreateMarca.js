@@ -8,45 +8,42 @@ function CreateMarca({Rol}) {
   // Crear un estado para cada campo del formulario
     const [NombreMarca, setNombreMarca] = useState('');
 
-    // Función para manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        //Validar campos
-    if (!NombreMarca) {
-        alert ('Debe completar los campos');
-        return;
-    }
-
-        // Crear un objeto con los datos del formulario
-        const formData = {
-        NombreMarca,
+        
+            if (!NombreMarca) {
+            alert('Debe completar los campos');
+            return;
+            }
+        
+            const formData = {
+            NombreMarca,
+            };
+        
+            try {
+            const response = await fetch('http://localhost:5000/crud/createMarca', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const responseData = await response.json();
+        
+            if (response.ok) {
+                alert('Marca Registrada');
+                setNombreMarca('');
+            } else {
+                // Manejar el caso cuando el servidor responde con un error
+                alert(responseData.error || 'Error al registrar la marca');
+            }
+            } catch (error) {
+            console.error('Error en la solicitud:', error);
+            alert('Error en la solicitud al servidor');
+            }
         };
-
-        try {
-        // Realizar una solicitud HTTP al backend para enviar los datos
-        const response = await fetch('http://localhost:5000/crud/createMarca', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-            // El registro se creó exitosamente
-            alert('Marca Registrada');
-            // Reiniciar los campos del formulario
-            setNombreMarca('');
-        } else {
-            alert('Campo vacío');
-        }
-        } catch (error) {
-        console.error('Error en la solicitud:', error);
-        alert('Error en la solicitud al servidor');
-        }
-    };
-
+        
     return(
         <div className='formulario-1'>
         <Header Rol={Rol}/>

@@ -52,31 +52,45 @@ module.exports = (db) => {
   //curl http://localhost:5000/crud/readMarca
   //--------------------------------------------------------------------------------------
 
-  // Ruta para crear un nuevo registro con ID específico en la tabla Marca------------
   router.post('/createMarca', (req, res) => {
-    // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {NombreMarca } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
+    const { NombreMarca } = req.body;
+  
     if (!NombreMarca) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
-
-    // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO marca (NombreMarca) VALUES (?)`;
-    const values = [NombreMarca];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
+  
+    // Consulta SQL para verificar si ya existe una marca con el mismo nombre
+    const checkSql = 'SELECT COUNT(*) AS count FROM marca WHERE NombreMarca = ?';
+    const checkValues = [NombreMarca];
+  
+    db.query(checkSql, checkValues, (err, result) => {
       if (err) {
-        console.error('Error al insertar un registro en la tabla marca:', err);
-        res.status(500).json({ error: 'Error al insertar un registro en la tabla marca' });
-      } else {
-        // Devuelve un mensaje como respuesta
-        res.status(200).json({ message: 'Registro agregado exitosamente' });
+        console.error('Error al verificar la existencia de la marca:', err);
+        return res.status(500).json({ error: 'Error al verificar la existencia de la marca' });
       }
+  
+      const count = result[0].count;
+  
+      if (count > 0) {
+        // Ya existe una marca con el mismo nombre
+        return res.status(400).json({ error: 'Ya existe una marca con este nombre' });
+      }
+  
+      // Si no existe, procedemos a insertar la nueva marca
+      const insertSql = 'INSERT INTO marca (NombreMarca) VALUES (?)';
+      const insertValues = [NombreMarca];
+  
+      db.query(insertSql, insertValues, (err, result) => {
+        if (err) {
+          console.error('Error al insertar un registro en la tabla marca:', err);
+          return res.status(500).json({ error: 'Error al insertar un registro en la tabla marca' });
+        }
+  
+        res.status(200).json({ message: 'Registro agregado exitosamente' });
+      });
     });
   });
+  
 
   //Sentencia
   //curl -X POST -H "Content-Type: application/json" -d "{\"NombreMarca\":\"RAMOS\"}" http://localhost:5000/crud/createMarca
@@ -169,30 +183,43 @@ module.exports = (db) => {
 
   // Ruta para crear un nuevo registro con ID específico en la tabla Presentación------------
   router.post('/createPresentacion', (req, res) => {
-    // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {NombrePresentacion } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
+    const { NombrePresentacion } = req.body;
+  
     if (!NombrePresentacion) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
-
-    // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO presentacion (NombrePresentacion) VALUES (?)`;
-    const values = [NombrePresentacion];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
+  
+    // Consulta SQL para verificar si ya existe una presentación con el mismo nombre
+    const checkSql = 'SELECT COUNT(*) AS count FROM presentacion WHERE NombrePresentacion = ?';
+    const checkValues = [NombrePresentacion];
+  
+    db.query(checkSql, checkValues, (err, result) => {
       if (err) {
-        console.error('Error al insertar un registro en la tabla presentación:', err);
-        res.status(500).json({ error: 'Error al insertar un registro en la tabla presentación' });
-      } else {
-        // Devuelve un mensaje como respuesta
-        res.status(200).json({ message: 'Registro agregado exitosamente' });
+        console.error('Error al verificar la existencia de la presetación:', err);
+        return res.status(500).json({ error: 'Error al verificar la existencia de la presentación' });
       }
+  
+      const count = result[0].count;
+  
+      if (count > 0) {
+        // Ya existe una presentación con el mismo nombre
+        return res.status(400).json({ error: 'Ya existe una presentación con este nombre' });
+      }
+  
+      // Si no existe, procedemos a insertar la nueva presentación
+      const insertSql = 'INSERT INTO presentacion (NombrePresentacion) VALUES (?)';
+      const insertValues = [NombrePresentacion];
+  
+      db.query(insertSql, insertValues, (err, result) => {
+        if (err) {
+          console.error('Error al insertar un registro en la tabla presentación:', err);
+          return res.status(500).json({ error: 'Error al insertar un registro en la tabla presentación' });
+        }
+  
+        res.status(200).json({ message: 'Registro agregado exitosamente' });
+      });
     });
   });
-
   //Sentencia
   //curl -X POST -H "Content-Type: application/json" -d "{\"NombrePresentacion\":\"Tableta\"}" http://localhost:5000/crud/createPresentacion
   //----------------------------------------------------------------------------------------
@@ -972,27 +999,41 @@ module.exports = (db) => {
 
   // Ruta para crear un nuevo registro con ID específico en la tabla Categoria------------
   router.post('/createCategoria', (req, res) => {
-    // Recibe los datos del nuevo registro desde el cuerpo de la solicitud (req.body)
-    const {NombreCategoria } = req.body;
-
-    // Verifica si se proporcionaron los datos necesarios
+    const { NombreCategoria } = req.body;
+  
     if (!NombreCategoria) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
-
-    // Realiza la consulta SQL para insertar un nuevo registro con ID específico
-    const sql = `INSERT INTO categoria (NombreCategoria) VALUES (?)`;
-    const values = [NombreCategoria];
-
-    // Ejecuta la consulta
-    db.query(sql, values, (err, result) => {
+  
+    // Consulta SQL para verificar si ya existe una categoría con el mismo nombre
+    const checkSql = 'SELECT COUNT(*) AS count FROM categoria WHERE NombreCategoria = ?';
+    const checkValues = [NombreCategoria];
+  
+    db.query(checkSql, checkValues, (err, result) => {
       if (err) {
-        console.error('Error al insertar un registro en la tabla categoria:', err);
-        res.status(500).json({ error: 'Error al insertar un registro en la tabla categoria' });
-      } else {
-        // Devuelve un mensaje como respuesta
-        res.status(200).json({ message: 'Registro agregado exitosamente' });
+        console.error('Error al verificar la existencia de la categoria:', err);
+        return res.status(500).json({ error: 'Error al verificar la existencia de la categoria' });
       }
+  
+      const count = result[0].count;
+  
+      if (count > 0) {
+        // Ya existe una categoria con el mismo nombre
+        return res.status(400).json({ error: 'Ya existe una categoría con este nombre' });
+      }
+  
+      // Si no existe, procedemos a insertar la nueva categoria
+      const insertSql = 'INSERT INTO categoria (NombreCategoria) VALUES (?)';
+      const insertValues = [NombreCategoria];
+  
+      db.query(insertSql, insertValues, (err, result) => {
+        if (err) {
+          console.error('Error al insertar un registro en la tabla categoría:', err);
+          return res.status(500).json({ error: 'Error al insertar un registro en la tabla categoría' });
+        }
+  
+        res.status(200).json({ message: 'Registro agregado exitosamente' });
+      });
     });
   });
   

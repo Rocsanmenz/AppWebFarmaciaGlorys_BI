@@ -156,19 +156,18 @@ function CreateProducto({Rol}) {
 
 const [NombreMarca, setNombreMarca] = useState('');
 
-const handleSubmitMarca = async (e) => {
+    const handleSubmitMarca = async (e) => {
     e.preventDefault();
-
-    //Validar campos
-    if (!NombreMarca) {
-        alert ('Debe completar los campos');
+    
+        if (!NombreMarca) {
+        alert('Debe completar los campos');
         return;
-    }
-
-    const formData = {
+        }
+    
+        const formData = {
         NombreMarca,
         };
-
+    
         try {
         const response = await fetch('http://localhost:5000/crud/createMarca', {
             method: 'POST',
@@ -177,13 +176,15 @@ const handleSubmitMarca = async (e) => {
             },
             body: JSON.stringify(formData),
         });
-
+    
+        const responseData = await response.json();
+    
         if (response.ok) {
             alert('Marca Registrada');
-            loadMarca();
             setNombreMarca('');
         } else {
-            alert('Campo vacío');
+            // Manejar el caso cuando el servidor responde con un error
+            alert(responseData.error || 'Error al registrar la marca');
         }
         } catch (error) {
         console.error('Error en la solicitud:', error);
@@ -193,77 +194,79 @@ const handleSubmitMarca = async (e) => {
 
     const [NombreCategoria, setNombreCategoria] = useState('');
 
-const handleSubmitCategoria = async (e) => {
-    e.preventDefault();
-
-    //Validar campos
-    if (!NombreCategoria) {
-        alert ('Debe completar los campos');
-        return;
-    }
-
-    const formData = {
-        NombreCategoria,
+    const handleSubmitCategoria = async (e) => {
+        e.preventDefault();
+        
+            if (!NombreCategoria) {
+            alert('Debe completar los campos');
+            return;
+            }
+        
+            const formData = {
+            NombreCategoria,
+            };
+        
+            try {
+            const response = await fetch('http://localhost:5000/crud/createCategoria', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const responseData = await response.json();
+        
+            if (response.ok) {
+                alert('Categoría Registrada');
+                setNombreCategoria('');
+            } else {
+                // Manejar el caso cuando el servidor responde con un error
+                alert(responseData.error || 'Error al registrar la categoría');
+            }
+            } catch (error) {
+            console.error('Error en la solicitud:', error);
+            alert('Error en la solicitud al servidor');
+            }
         };
-
-        try {
-        const response = await fetch('http://localhost:5000/crud/createCategoria', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-            alert('Categoria Registrada');
-            loadCategoria();
-            setNombreCategoria('');
-        } else {
-            alert('Campo vacío');
-        }
-        } catch (error) {
-        console.error('Error en la solicitud:', error);
-        alert('Error en la solicitud al servidor');
-        }
-    };
 
     const [NombrePresentacion, setNombrePresentacion] = useState('');
 
-const handleSubmitPresentacion = async (e) => {
-    e.preventDefault();
-
-    //Validar campos
-    if (!NombrePresentacion) {
-        alert ('Debe completar los campos');
-        return;
-    }
-
-    const formData = {
-        NombrePresentacion,
+    const handleSubmitPresentacion = async (e) => {
+        e.preventDefault();
+        
+            if (!NombrePresentacion) {
+            alert('Debe completar los campos');
+            return;
+            }
+        
+            const formData = {
+            NombrePresentacion,
+            };
+        
+            try {
+            const response = await fetch('http://localhost:5000/crud/createPresentacion', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+        
+            const responseData = await response.json();
+        
+            if (response.ok) {
+                alert('Presentación Registrada');
+                setNombrePresentacion('');
+            } else {
+                // Manejar el caso cuando el servidor responde con un error
+                alert(responseData.error || 'Error al registrar la presentación');
+            }
+            } catch (error) {
+            console.error('Error en la solicitud:', error);
+            alert('Error en la solicitud al servidor');
+            }
         };
-
-        try {
-        const response = await fetch('http://localhost:5000/crud/createPresentacion', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-            alert('Presentacion Registrada');
-            loadPresentacion();
-            setNombrePresentacion('');
-        } else {
-            alert('Campo vacío');
-        }
-        } catch (error) {
-        console.error('Error en la solicitud:', error);
-        alert('Error en la solicitud al servidor');
-        }
-    };
 
 
     return(

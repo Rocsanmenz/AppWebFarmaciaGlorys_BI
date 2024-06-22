@@ -39,20 +39,26 @@ function Compra({ Rol }) {
     };
 
     const AgregarDetalleProducto = () => {
+        //Condición para no agregar una cantidad mayor a la de stock
         if (selectedProducto && CantProductos) {
-            const nuevoDetalle = {
-                IDProducto: selectedProducto.IDProducto,
-                NomProducto: selectedProducto.NomProducto,
-                PrecioProducto: selectedProducto.PrecioProducto,
-                CantProductos: CantProductos
-            };
-            setDetallesCompra([...detallesCompra, nuevoDetalle]);
-            setCantProductos('');
-            setSelectedProducto('');
+            if (CantProductos > selectedProducto.CantProducto) {
+                alert('Cantidad en stock insuficiente');
             } else {
-            alert('Asegúrese de selecionar un producto o ingresar una cantidad.');
+                const nuevoDetalle = {
+                    IDProducto: selectedProducto.IDProducto,
+                    NomProducto: selectedProducto.NomProducto,
+                    PrecioProducto: selectedProducto.PrecioProducto,
+                    CantProductos: CantProductos
+                };
+                setDetallesCompra([...detallesCompra, nuevoDetalle]);
+                setCantProductos('');
+                setSelectedProducto('');
             }
-        };
+        } else {
+            alert('Asegúrese de seleccionar un producto o ingresar una cantidad.');
+        }
+    };
+    
         
         const EliminarDetalle = (IDProducto) => {
             const detallesActualizados = detallesCompra.filter(detalle => detalle.IDProducto !== IDProducto);
