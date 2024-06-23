@@ -724,6 +724,16 @@ function Grafico ({Rol}) {
                 console.error('Error al enviar el correo:', error);
             });
         };
+
+        const exportarAExcel6 = () => {
+            // Convertir los datos JSON a una hoja de trabajo de Excel
+            const worksheet = XLSX.utils.json_to_sheet(dias);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'dias');
+        
+            // Generar y descargar el archivo Excel
+            XLSX.writeFile(workbook, 'dias.xlsx');
+            };
     
         const generarReporteAlmacenImg5 = async () => {
         try {
@@ -831,6 +841,7 @@ function Grafico ({Rol}) {
                 console.error('Error al enviar el correo:', error);
             });
         };
+
 
     const generarReporteAlmacenImg6 = async () => {
         try {
@@ -1068,7 +1079,15 @@ function Grafico ({Rol}) {
             });
         };
 
-
+        const exportarAExcel7 = () => {
+            // Convertir los datos JSON a una hoja de trabajo de Excel
+            const worksheet = XLSX.utils.json_to_sheet(empleados);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'empleados');
+        
+            // Generar y descargar el archivo Excel
+            XLSX.writeFile(workbook, 'empleados.xlsx');
+            };
 
     const generarReporteAlmacenImg7 = async () => {
         try {
@@ -1184,6 +1203,10 @@ function Grafico ({Rol}) {
                     <Button variant="primary" onClick={enviarCorreo6} className="m-3">
                     <BiLogoGmail style={{ color: 'white' }} />
                         </Button>
+                        <Button variant="success" onClick={exportarAExcel7} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
+                </Button>
+                        
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1241,6 +1264,9 @@ function Grafico ({Rol}) {
                     <Button variant="primary" onClick={enviarCorreo7} className="m-3">
                     <BiLogoGmail style={{ color: 'white' }} />
                         </Button>
+                        <Button variant="success" onClick={exportarAExcel6} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
