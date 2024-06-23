@@ -841,7 +841,16 @@ function Grafico ({Rol}) {
                 console.error('Error al enviar el correo:', error);
             });
         };
+                //Función que permite guardar los datos de las estadísticas en un archivo excel
+                const exportarAExcel8 = () => {
+                    // Convertir los datos JSON a una hoja de trabajo de Excel
+                    const worksheet = XLSX.utils.json_to_sheet(trimestres);
+                    const workbook = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(workbook, worksheet, 'trimestres');
 
+                    // Generar y descargar el archivo Excel
+                    XLSX.writeFile(workbook, 'trimestres.xlsx');
+                    };
 
     const generarReporteAlmacenImg6 = async () => {
         try {
@@ -948,7 +957,19 @@ function Grafico ({Rol}) {
                     alert('Error al enviar el correo.');
                     console.error('Error al enviar el correo:', error);
                 });
+                      
+
             };
+              //Función que permite guardar los datos de las estadísticas en un archivo excel
+              const exportarAExcel9 = () => {
+                // Convertir los datos JSON a una hoja de trabajo de Excel
+                const worksheet = XLSX.utils.json_to_sheet(productos1);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'productos1');
+
+                // Generar y descargar el archivo Excel
+                XLSX.writeFile(workbook, 'productos1.xlsx');
+                };
 
             //Reporte 
             const generarReporteAlmacenImg9 = async () => {
@@ -981,6 +1002,9 @@ function Grafico ({Rol}) {
                     } catch (error) {
                     console.error('Error al generar el reporte con imagen:', error);
                     }
+
+      
+         
                 };
 
     // Gráfico 9 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1283,6 +1307,9 @@ function Grafico ({Rol}) {
                     <Button variant="primary" onClick={enviarCorreo8} className="m-3">
                     <BiLogoGmail style={{ color: 'white' }} />
                         </Button>
+                  <Button variant="success" onClick={exportarAExcel8} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
+                </Button>
                 </Card.Body>
                     </Card>
                 </Col> 
@@ -1298,6 +1325,9 @@ function Grafico ({Rol}) {
                     </Button>
                     <Button variant="primary" onClick={enviarCorreo9} className="m-3">
                     <BiLogoGmail style={{ color: 'white' }} />
+                </Button>
+                <Button variant="success" onClick={exportarAExcel9} className="m-1">
+                    <FaFileExcel style={{ color: 'white' }} />
                 </Button>
                 </Card.Body>
                     </Card>
